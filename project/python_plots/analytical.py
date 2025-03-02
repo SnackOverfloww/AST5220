@@ -96,7 +96,7 @@ eta_Lambda = matter_dark_energy_eq_eta + (((-1/((H0)*np.sqrt(omega_Lambda)))*np.
 
 
 
-#Plotting the plot for eta(x), t(x), equality times, and beginning of acceleration
+#Plotting the plot for eta(x), t(x), equality times, and beginning of acceleration of Universe
 plt.figure(figsize = (16,8))
 plt.plot(x, t_of_x_scaled, label = "Time t(x)")
 plt.plot(x, (eta_of_x_scaled), label = "Conformal time $\eta(x)/c$")
