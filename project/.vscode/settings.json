@@ -1,0 +1,5 @@
+{
+    "notebook.output.minimalErrorRendering": false,
+    "C_Cpp.errorSquiggles": "enabled",
+    "makefile.configureOnOpen": false
+}
