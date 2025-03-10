@@ -23,7 +23,7 @@ class RecombinationHistory{
     const double x_end    = Constants.x_end;
     
     // Numbers of points of Xe,ne array (modify as you see fit)
-    const int npts_rec_arrays = 4000;
+    const int npts_rec_arrays = 1000;
   
     // Xe for when to switch between Saha and Peebles
     const double Xe_saha_limit = 0.99;
@@ -49,9 +49,10 @@ class RecombinationHistory{
     void solve_for_optical_depth_tau();
 
     // Splines contained in this class
-    Spline log_Xe_of_x_spline{"Xe"};
+    Spline Xe_of_x_spline{"Xe"};
     Spline tau_of_x_spline{"tau"}; 
     Spline g_tilde_of_x_spline{"g"};  
+    Spline log_ne_of_x_spline{"ne"}; 
 
   public:
 
@@ -71,6 +72,7 @@ class RecombinationHistory{
     void output(const std::string filename) const;
 
     // Get functions that we must implement
+    double calcualte_baryon_density(double x) const;
     double tau_of_x(double x) const;
     double dtaudx_of_x(double x) const;
     double ddtauddx_of_x(double x) const;
@@ -79,6 +81,7 @@ class RecombinationHistory{
     double ddgddx_tilde_of_x(double x) const;
     double Xe_of_x(double x) const;
     double ne_of_x(double x) const;
+    double nH_of_x(double x) const;
     double get_Yp() const;
 };
 
