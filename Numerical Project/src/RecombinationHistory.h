@@ -52,7 +52,8 @@ class RecombinationHistory{
     Spline Xe_of_x_spline{"Xe"};
     Spline tau_of_x_spline{"tau"}; 
     Spline g_tilde_of_x_spline{"g"};  
-    Spline log_ne_of_x_spline{"ne"}; 
+    Spline ne_of_x_spline{"ne"}; 
+    Spline log_ne_of_x_spline{"log_ne"}; 
 
   public:
 
@@ -80,6 +81,7 @@ class RecombinationHistory{
     double dgdx_tilde_of_x(double x) const;
     double ddgddx_tilde_of_x(double x) const;
     double Xe_of_x(double x) const;
+    double log_ne_of_x(double x) const;
     double ne_of_x(double x) const;
     double nH_of_x(double x) const;
     double get_Yp() const;

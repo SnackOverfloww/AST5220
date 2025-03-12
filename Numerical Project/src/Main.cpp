@@ -47,7 +47,7 @@ int main(int argc, char **argv){
   // mcmc_fit_to_supernova_data("data/supernovadata.txt", "results.txt");
 
   // Remove when module is completed
-  return 0;
+  // return 0;
 
   //=========================================================================
   // Module II
