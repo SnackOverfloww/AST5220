@@ -50,6 +50,7 @@ class RecombinationHistory{
 
     // Splines contained in this class
     Spline Xe_of_x_spline{"Xe"};
+    Spline Xe_of_x_reion_spline{"Xe_reion"};
     Spline tau_of_x_spline{"tau"}; 
     Spline g_tilde_of_x_spline{"g"};  
     Spline ne_of_x_spline{"ne"}; 
@@ -81,6 +82,7 @@ class RecombinationHistory{
     double dgdx_tilde_of_x(double x) const;
     double ddgddx_tilde_of_x(double x) const;
     double Xe_of_x(double x) const;
+    double Xe_of_x_reion(double x) const;
     double log_ne_of_x(double x) const;
     double ne_of_x(double x) const;
     double nH_of_x(double x) const;

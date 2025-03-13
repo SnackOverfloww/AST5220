@@ -39,24 +39,25 @@ void RecombinationHistory::solve_number_density_electrons(){
   //=============================================================================
   
   const double xmin = -15.;
-  const double xmax = 3.;
+  const double xmax = 3;
   const int    npts = 1000;
+  double z_reion = 8.;
+  double delta_z_reion = 0.5;
   
   Vector x_array = Utils::linspace(xmin, xmax, npts);
   Vector Xe_arr(npts);
+  Vector Xe_reion_arr(npts);
   Vector ne_arr(npts);
   Vector log_ne_arr(npts);
   
 
   // Calculate recombination history
   bool saha_regime = true;
-  for(int i = 0; i < 1000 ; i++){
+  bool reionisation = false; //change this based on whether you want reionisation or not
+  for(int i = 0; i < npts ; i++){
 
     //==================================================================
-    // TODO: Get X_e from solving the Saha equation so
-    // implement the function electron_fraction_from_saha_equation
-    //==================================================================
-
+    // Get X_e from solving the Saha equation:
     auto Xe_ne_data = electron_fraction_from_saha_equation(x_array[i]);
 
     // Electron fraction and number density
@@ -70,24 +71,18 @@ void RecombinationHistory::solve_number_density_electrons(){
     if(saha_regime){
       
       //=============================================================================
-      // TODO: Store the result we got from the Saha equation
-      //=============================================================================
-      Xe_arr[i] = Xe_current; 
-      ne_arr[i] = (ne_current);
+      //Store the result we got from the Saha equation
+      Xe_arr[i] = Xe_current;
+      ne_arr[i] = ne_current;
       log_ne_arr[i] = log(ne_current);
-
       // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne_arr[i] << std::endl;
+      //=============================================================================
+
+    //==================================================================
 
     } else {
 
       if(i==0) std::cout << "Error: i = 0" << std::endl; // Tells us if we skip the whole Saha regime
-
-      //========================================================================
-      // TODO: Compute X_e from current time til today by solving 
-      // the Peebles equation (NB: if you solve all in one go remember to
-      // exit the for-loop!)
-      // Implement rhs_peebles_ode
-      //======================================================================== Xe / n_h = n_e
 
       // The Peebles ODE equation
       ODESolver peebles_Xe_ode;
@@ -100,28 +95,38 @@ void RecombinationHistory::solve_number_density_electrons(){
       peebles_Xe_ode.solve(dXedx, x_array_peebles, initial_condition);
       auto Xe_array = peebles_Xe_ode.get_data_by_component(0);
 
-  
       Xe_arr[i] = Xe_array[1];
-      double nH = RecombinationHistory::nH_of_x(x_array[i]);
-      double ne = nH * Xe_arr[i];
-      // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne << std::endl;
-      ne_arr[i] = (ne); 
-      log_ne_arr[i] = log(ne);
-      // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne_arr[i] << std::endl;
       
     }
 
-    //===============================================================================
-    // TODO: Spline the result. Implement and make sure the Xe_of_x, ne_of_x 
-    // functions are working
-    //===============================================================================
-    
-    // Make the splines
-    Xe_of_x_spline.create(x_array, Xe_arr, "Xe");
-    log_ne_of_x_spline.create(x_array, log_ne_arr, "ne");
-    ne_of_x_spline.create(x_array, ne_arr, "ne");
-
   }
+
+  for (int i = 0; i < 1000; i++) {
+    double y = exp((-3.*x_array[i])/2.);
+    double fHe = Yp/(4.*(1-Yp));
+    double y_reion = pow((1.+z_reion), (3./2.));
+    double delta_y_reion = (3./2.) * sqrt(1.+z_reion) * delta_z_reion; 
+        
+    //=======================================================================================================
+    if (reionisation){
+      Xe_arr[i] = Xe_arr[i] + (((1.+fHe)/2.) * (1. + tanh((y_reion - y)/(delta_y_reion)))); 
+      std::cout << Xe_arr[i] << std::endl;
+    } else{ 
+      Xe_arr[i] = Xe_arr[i]; 
+    }
+     
+    double nH = RecombinationHistory::nH_of_x(x_array[i]);
+    double ne = nH * Xe_arr[i];
+    // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne << std::endl;
+    ne_arr[i] = (ne); 
+    log_ne_arr[i] = log(ne);
+    // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne_arr[i] << std::endl;
+  }
+
+  // Make the splines
+  Xe_of_x_spline.create(x_array, Xe_arr, "Xe");
+  log_ne_of_x_spline.create(x_array, log_ne_arr, "ne");
+  ne_of_x_spline.create(x_array, ne_arr, "ne");
 
   Utils::EndTiming("Xe");
 }
@@ -221,8 +226,7 @@ int RecombinationHistory::rhs_peebles_ode(double x, const double *Xe, double *dX
 
 
   //=============================================================================
-  // TODO: Write the expression for dXedx
-  //=============================================================================
+  //Expression for dXedx
 
   // double H_of_x = H0*sqrt(OmegaLambda + (OmegaK*pow(a, -2)) + ((OmegaB + OmegaCDM)*pow(a, -3)) + ((OmegaR+OmegaNu)*pow(a, -4)));
   double baryon_temperature = (TCMB_0 / a) * Constants.K;
@@ -247,6 +251,7 @@ int RecombinationHistory::rhs_peebles_ode(double x, const double *Xe, double *dX
 
   return GSL_SUCCESS;
 }
+  //=============================================================================
 
 //====================================================
 // Solve for the optical depth tau, compute the 
@@ -304,9 +309,9 @@ void RecombinationHistory::solve_for_optical_depth_tau(){
   //=============================================================================
 
   Vector g_tilde(npts);
-  for (int i = 0; i<1000; i++){
+  for (int i = 0; i<npts; i++){
     g_tilde[i] = -1*tau_of_x_spline.deriv_x(x_array[i]) * exp(-1 * tau_of_x_spline(x_array[i]));
-    std::cout << g_tilde[i] << std::endl;
+    // std::cout << g_tilde[i] << std::endl;
   }
   
   g_tilde_of_x_spline.create(x_array, g_tilde, "g"); // the problem is here!
@@ -385,7 +390,7 @@ void RecombinationHistory::info() const{
 //====================================================
 void RecombinationHistory::output(const std::string filename) const{ 
   std::ofstream fp(filename.c_str());
-  const int npts       = 5000;
+  const int npts       = 1000;
   const double x_min   = -12;
   const double x_max   = 0;
 
@@ -393,14 +398,13 @@ void RecombinationHistory::output(const std::string filename) const{
   auto print_data = [&] (const double x) {
     fp << x                    << " ";
     fp << Xe_of_x(x)           << " ";
-    fp << log(ne_of_x(x))           << " ";
-    // fp << log_ne_of_x(x)           << " ";
+    fp << log(ne_of_x(x))      << " ";
     fp << tau_of_x(x)          << " ";
     fp << dtaudx_of_x(x)       << " ";
     fp << ddtauddx_of_x(x)     << " ";
     fp << g_tilde_of_x(x)      << " ";
-    // fp << dgdx_tilde_of_x(x)   << " ";
-    // fp << ddgddx_tilde_of_x(x) << " ";
+    fp << dgdx_tilde_of_x(x)   << " ";
+    fp << ddgddx_tilde_of_x(x) << " ";
     fp << "\n";
   };
   std::for_each(x_array.begin(), x_array.end(), print_data);
