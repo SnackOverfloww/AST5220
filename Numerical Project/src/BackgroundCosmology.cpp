@@ -38,8 +38,8 @@ void BackgroundCosmology::solve(){
     
  
   // Set the range of x and the number of points for the splines. For this Utils::linspace(x_start, x_end, npts) is useful
-  const double xmin = -20.;
-  const double xmax = 5.;
+  const double xmin = x_start;
+  const double xmax = 7.;
   const int    npts = 1000;
   
   // The ODE for deta/dx
@@ -57,7 +57,9 @@ void BackgroundCosmology::solve(){
  
   ODESolver ode;
 
-  Vector initial_condition_eta{Hp_of_x(x_start)};
+  Vector initial_condition_eta{Constants.c / Hp_of_x(xmin)};
+  // std::cout << Constants.c / Hp_of_x(xmin) << std::endl;
+  // std::cout << Hp_of_x(xmin) << std::endl;
   
   ode.solve(detadx, x_array, initial_condition_eta);
   auto eta_array = ode.get_data_by_component(0);
@@ -80,7 +82,7 @@ void BackgroundCosmology::solve(){
   };
 
   // TODO: Set the initial condition, set up the ODE system, solve and make the spline t_of_x_spline 
-  Vector initial_condition_time{1/(2*H_of_x(x_start))};
+  Vector initial_condition_time{1/(2*H_of_x(xmin))};
   
   ode.solve(dtdx, x_array, initial_condition_time);
   auto time_array = ode.get_data_by_component(0);
@@ -304,6 +306,15 @@ void BackgroundCosmology::info() const{
   std::cout << "Matter-dark energy equality occur at a conformal time " << eta_of_x(-0.2558189708133) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "The universe starts to accelerate at a conformal time " << eta_of_x(-0.4868680309999) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "The conformal time of the Universe is " << eta_of_x(0) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "\n" << std::endl;
+  // std::cout << "The conformal time for the time of last scattering is " << eta_of_x(-6.9854) / (Constants.c * 60*60*24*365*pow(10,6)) << " Myrs \n";
+  // std::cout << "The time for the time of last scattering is " << t_of_x(-6.9854) / (60*60*24*365) << " yrs \n";
+  std::cout << "The time for when recombination happens, using Xe = 0.1, is " << t_of_x(-6.9866) / (60*60*24*365) << " yrs \n";
+  std::cout << "The conformal time for when recombination happens, using Xe = 0.1, is " << eta_of_x(-6.9866) / (Constants.c * 60*60*24*365*pow(10, 6)) << " Myrs \n";
+  std::cout << "The time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+            << t_of_x(-6.9854) / (60*60*24*365) << " yrs \n";
+  std::cout << "The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+            << eta_of_x(-6.9854) / (Constants.c * 60*60*24*365 * pow(10,6)) << " Myrs \n";
   //std::cout << "H0:        " << H0        << "\n";
   std::cout << std::endl;
 } 
@@ -312,7 +323,7 @@ void BackgroundCosmology::info() const{
 // Output some data to file
 //====================================================
 void BackgroundCosmology::output(const std::string filename) const{
-  const double x_min = -20.0;
+  const double x_min = -20;
   const double x_max =  5.0;
   const int    n_pts =  1000;
   
@@ -322,7 +333,6 @@ void BackgroundCosmology::output(const std::string filename) const{
   auto print_data = [&] (const double x) {
     fp << x                  << " ";
     fp << eta_of_x(x)        << " ";
-    // deriv_x
     fp << Hp_of_x(x)         << " ";
     fp << dHpdx_of_x(x)      << " ";
     fp << ddHpddx_of_x(x)    << " ";

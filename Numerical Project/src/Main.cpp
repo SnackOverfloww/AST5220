@@ -58,10 +58,11 @@ int main(int argc, char **argv){
   rec.solve();
   rec.info();
 
-  bool reionisation = true;
-  // Output recombination quantities
-  rec.output("recombination.txt");
- 
+  /*Output recombination quantities*/ 
+  // rec.output("recombination_with_reionisation.txt");
+  rec.output("recombination_no_reionisation.txt");
+  // rec.output("recombination_just_saha.txt");
+
 
   // Remove when module is completed
   return 0;

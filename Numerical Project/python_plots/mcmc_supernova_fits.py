@@ -58,17 +58,17 @@ print("The standard deviation for h", std_h_value_1_sigma)
 flat_universe_omega_m = np.linspace(0,1,100)
 flat_universe_omega_lambda = 1-flat_universe_omega_m
 
-plt.figure(figsize = (8,6))
-plt.scatter(accepted_OmegaM_1_sigma, accepted_OmegaLambda_1_sigma, color = "#d36a7e", label = r"$1\sigma$", zorder = 2)
-plt.scatter(accepted_OmegaM_2_sigma, accepted_OmegaLambda_2_sigma, color = "#b13745", label = r"2$\sigma$", zorder = 1)
-plt.plot(flat_universe_omega_m, flat_universe_omega_lambda, color = "#808080", linestyle = "dashed", label = "Flat universe", zorder = 3)
-plt.ylim(0,1.5)
-plt.xlim(0,1)
-plt.xlabel("$\Omega_M$", fontsize = 20)
-plt.ylabel("$\Omega_\Lambda$", fontsize = 20)
-plt.legend(fontsize = 16)
-# plt.savefig("plots/scatter_supernova.pdf")
-plt.show()
+# plt.figure(figsize = (8,6))
+# plt.scatter(accepted_OmegaM_1_sigma, accepted_OmegaLambda_1_sigma, color = "#d36a7e", label = r"$1\sigma$", zorder = 2)
+# plt.scatter(accepted_OmegaM_2_sigma, accepted_OmegaLambda_2_sigma, color = "#b13745", label = r"2$\sigma$", zorder = 1)
+# plt.plot(flat_universe_omega_m, flat_universe_omega_lambda, color = "#808080", linestyle = "dashed", label = "Flat universe", zorder = 3)
+# plt.ylim(0,1.5)
+# plt.xlim(0,1)
+# plt.xlabel("$\Omega_M$", fontsize = 20)
+# plt.ylabel("$\Omega_\Lambda$", fontsize = 20)
+# plt.legend(fontsize = 16)
+# # plt.savefig("plots/scatter_supernova.pdf")
+# plt.show()
 
 print("The minimum value for the chi2 is", minimum_chi_value, "found in the index", minimum_chi_value_index)
 print("The best fit for h is", data[minimum_chi_value_index, 1])
@@ -78,92 +78,95 @@ print("the best fit for OmegaLambda is", OmegaLambda[minimum_chi_value_index])
 
 
 
-#-----------------------------------------------------------------------------------------------------------
-#For plotting OmegaM histrogram
+# #-----------------------------------------------------------------------------------------------------------
+# #For plotting OmegaM histrogram
 
-mu = np.mean(accepted_OmegaM_1_sigma)
-sigma = std_OmegaM_1_sigma  
+# mu_OmegaM = np.mean(accepted_OmegaM_1_sigma)
+# sigma_OmegaM = std_OmegaM_1_sigma
+# C_OmegaM = 1/(np.sqrt(2*np.pi)*sigma_OmegaM)
 
-gaussian_x_values = np.linspace(0, 2*mu, 1000)
-gaussian = (1/(np.sqrt(2*np.pi)*sigma))*np.exp(-(1/2)*(pow(gaussian_x_values-mu,2)/pow(sigma,2)))
+# gaussian_x_values = np.linspace(0, 2*mu_OmegaM, 1000)
+# gaussian = C_OmegaM * np.exp(-(1/2)*(pow(gaussian_x_values-mu_OmegaM,2)/pow(sigma_OmegaM,2)))
 
-plt.figure(figsize = (10,7))
-plt.hist(accepted_OmegaM_1_sigma, bins, density = True, color = "#90d5ff")
-plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
-plt.xlabel("$\Omega_M$", fontsize = 18)
-plt.axvline(x = data[minimum_chi_value_index, 2] , color = "#e75480", linestyle = "dashed", label = "Best fit parameter")
-plt.axvline(x = 0.315 , color = "#ed872d", linestyle = "dashed", label = "Planck best-fit parameter")
-plt.axvline(x = np.mean(accepted_OmegaM_1_sigma), color = "#008000", linestyle = "dashed", label = "Mean")
-plt.legend(fontsize = 12)
-plt.savefig("plots/omegaM_histogram.pdf")
-plt.show()
+# plt.figure(figsize = (10,7))
+# plt.hist(accepted_OmegaM_1_sigma, bins, density = True, color = "#ffa6c9")
+# plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
+# plt.xlabel("$\Omega_M$", fontsize = 18)
+# plt.axvline(x = data[minimum_chi_value_index, 2] , color = "#ff0000", linestyle = "dashed", label = "Best fit parameter")
+# plt.axvline(x = 0.315 , color = "#30d5c8", linestyle = "dashed", label = "Planck best-fit parameter")
+# plt.axvline(x = mu_OmegaM, color = "#008000", linestyle = "dashed", label = "Mean")
+# plt.legend(fontsize = 12)
+# # plt.savefig("plots/omegaM_histogram.pdf")
+# plt.show()
+# # #-----------------------------------------------------------------------------------------------------------
+
+# #-----------------------------------------------------------------------------------------------------------
+# #For plotting OmegaK histrogram
+
+# mu_OmegaK = np.mean(accepted_OmegaK_1_sigma)
+# print("mu for OmegaK is", mu_OmegaK)
+# sigma_OmegaK = std_OmegaK_1_sigma 
+# C_OmegaK = (1/(np.sqrt(2*np.pi)*sigma_OmegaK))
+
+# gaussian_x_values = np.linspace(mu_OmegaK  - (4*sigma_OmegaK), mu_OmegaK  + (4*sigma_OmegaK), 1000)
+# gaussian = C_OmegaK * np.exp(-(1/2)*(pow(gaussian_x_values-mu_OmegaK ,2)/pow(sigma_OmegaK,2)))
+
+# plt.figure(figsize = (10,7))
+# plt.hist(accepted_OmegaK_1_sigma, bins, density = True, color = "#ffa6c9")
+# plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
+# plt.xlabel("$\Omega_\kappa$", fontsize = 18)
+# plt.axvline(x = data[minimum_chi_value_index, 3] , color = "#ff0000", linestyle = "dashed", label = "Best fit parameter")
+# plt.axvline(x = 0.001 , color = "#30d5c8", linestyle = "dashed", label = "Planck best-fit parameter")
+# plt.axvline(x = mu_OmegaK , color = "#008000", linestyle = "dashed", label = "Mean")
+# plt.legend(fontsize = 12)
+# plt.savefig("plots/omegaK_histogram.pdf")
+# plt.show()
 # #-----------------------------------------------------------------------------------------------------------
 
-#-----------------------------------------------------------------------------------------------------------
-#For plotting OmegaK histrogram
+# #-----------------------------------------------------------------------------------------------------------
+# # #For plotting OmegaLambda histrogram
 
-mu = np.mean(accepted_OmegaK_1_sigma)
-print(mu)
-sigma = std_OmegaK_1_sigma 
-C = (1/(np.sqrt(2*np.pi)*sigma))
+# mu_OmegaLambda = np.mean(accepted_OmegaLambda_1_sigma)
+# sigma_OmegaLambda = std_OmegaLambda_1_sigma
+# C_OmegaLambda = 1/(np.sqrt(2*np.pi)*sigma_OmegaLambda)
 
-gaussian_x_values = np.linspace(mu - (4*sigma), mu + (4*sigma), 1000)
-gaussian = C * np.exp(-(1/2)*(pow(gaussian_x_values-mu,2)/pow(sigma,2)))
+# gaussian_x_values = np.linspace(mu_OmegaLambda  - (4*sigma_OmegaLambda), mu_OmegaLambda  + (4*sigma_OmegaLambda), 1000)
+# gaussian = C_OmegaLambda * np.exp(-(1/2)*(pow(gaussian_x_values-mu_OmegaLambda ,2)/pow(sigma_OmegaLambda,2)))
 
-plt.figure(figsize = (10,7))
-plt.hist(accepted_OmegaK_1_sigma, bins, density = True, color = "#90d5ff")
-plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
-plt.xlabel("$\Omega_\kappa$", fontsize = 18)
-plt.axvline(x = data[minimum_chi_value_index, 3] , color = "#e75480", linestyle = "dashed", label = "Best fit parameter")
-plt.axvline(x = 0.001 , color = "#ed872d", linestyle = "dashed", label = "Planck best-fit parameter")
-plt.axvline(x = np.mean(accepted_OmegaK_1_sigma), color = "#008000", linestyle = "dashed", label = "Mean")
-plt.legend(fontsize = 12)
-plt.savefig("plots/omegaK_histogram.pdf")
-plt.show()
-#-----------------------------------------------------------------------------------------------------------
+# plt.figure(figsize = (10,7))
+# histo = plt.hist(accepted_OmegaLambda_1_sigma, bins, density = True, color = "#ffa6c9")
+# plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
+# plt.xlabel("$\Omega_\Lambda$", fontsize = 18)
+# plt.axvline(x = OmegaLambda[minimum_chi_value_index] , color = "#ff0000", linestyle = "dashed", label = "Best fit parameter")
+# plt.axvline(x = 0.684 , color = "#30d5c8", linestyle = "dashed", label = "Planck best-fit parameter")
+# plt.axvline(x = mu_OmegaLambda , color = "#008000", linestyle = "dashed", label = "Mean")
+# plt.legend(fontsize = 12)
+# # plt.savefig("plots/omegaLambda_histogram.pdf")
+# plt.show()
+# #-----------------------------------------------------------------------------------------------------------
 
-#-----------------------------------------------------------------------------------------------------------
-# #For plotting OmegaLambda histrogram
+# #-----------------------------------------------------------------------------------------------------------
+# #For plotting H0 histrogram
 
-mu = np.mean(accepted_OmegaLambda_1_sigma)
-sigma = std_OmegaLambda_1_sigma
+# H0_values = h_values * 100
+# accepted_H0_values_1_sigma = accepted_h_values_1_sigma * 100
+# std_H0_value_1_sigma = np.std(accepted_H0_values_1_sigma)
 
-gaussian_x_values = np.linspace(mu - (4*sigma), mu + (4*sigma), 1000)
-gaussian = (1/(np.sqrt(2*np.pi)*sigma))*np.exp(-(1/2)*(pow(gaussian_x_values-mu,2)/pow(sigma,2)))
+# mu_H0 = np.mean(accepted_H0_values_1_sigma)
+# sigma_H0 = std_H0_value_1_sigma
+# C_hubble0 = 1/(np.sqrt(2*np.pi)*sigma_H0)
 
-plt.figure(figsize = (10,7))
-histo = plt.hist(accepted_OmegaLambda_1_sigma, bins, density = True, color = "#90d5ff")
-plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
-plt.xlabel("$\Omega_\Lambda$", fontsize = 18)
-plt.axvline(x = OmegaLambda[minimum_chi_value_index] , color = "#e75480", linestyle = "dashed", label = "Best fit parameter")
-plt.axvline(x = 0.684 , color = "#ed872d", linestyle = "dashed", label = "Planck best-fit parameter")
-plt.axvline(x = np.mean(accepted_OmegaLambda_1_sigma), color = "#008000", linestyle = "dashed", label = "Mean")
-plt.legend(fontsize = 12)
-plt.savefig("plots/omegaLambda_histogram.pdf")
-plt.show()
-#-----------------------------------------------------------------------------------------------------------
+# gaussian_x_values = np.linspace(mu_H0 - (4*sigma_H0), mu_H0 + (4*sigma_H0), 1000)
+# gaussian = C_hubble0 * np.exp(-(1/2)*(pow(gaussian_x_values-mu_H0,2)/pow(sigma_H0,2)))
 
-#-----------------------------------------------------------------------------------------------------------
-#For plotting H0 histrogram
-
-H0_values = h_values * 100
-accepted_H0_values_1_sigma = accepted_h_values_1_sigma * 100
-std_H0_value_1_sigma = np.std(accepted_H0_values_1_sigma)
-
-mu = np.mean(accepted_H0_values_1_sigma)
-sigma = std_H0_value_1_sigma
-
-gaussian_x_values = np.linspace(mu - (4*sigma), mu + (4*sigma), 1000)
-gaussian = (1/(np.sqrt(2*np.pi)*sigma))*np.exp(-(1/2)*(pow(gaussian_x_values-mu,2)/pow(sigma,2)))
-
-plt.figure(figsize = (10,7))
-histo = plt.hist(accepted_H0_values_1_sigma, bins, density = True, color = "#90d5ff")
-plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
-plt.xlabel("$H_{0}$", fontsize = 18)
-plt.axvline(x = H0_values[minimum_chi_value_index] , color = "#e75480", linestyle = "dashed", label = "Best fit parameter")
-plt.axvline(x = 67.4, color = "#ed872d", linestyle = "dashed", label = "Planck best-fit parameter")
-plt.axvline(x = np.mean(accepted_H0_values_1_sigma), color = "#008000", linestyle = "dashed", label = "Mean")
-plt.legend(fontsize = 12)
-plt.savefig("plots/H0_histogram.pdf")
-plt.show()
-#-----------------------------------------------------------------------------------------------------------
+# plt.figure(figsize = (10,7))
+# histo = plt.hist(accepted_H0_values_1_sigma, bins, density = True, color = "#ffa6c9")
+# plt.plot(gaussian_x_values, gaussian, color = "#00035b", label = "Gaussian fit")
+# plt.xlabel("$H_{0}$", fontsize = 18)
+# plt.axvline(x = H0_values[minimum_chi_value_index] , color = "#ff0000", linestyle = "dashed", label = "Best fit parameter")
+# plt.axvline(x = 67.4, color = "#30d5c8", linestyle = "dashed", label = "Planck best-fit parameter")
+# plt.axvline(x = mu_H0 , color = "#008000", linestyle = "dashed", label = "Mean")
+# plt.legend(fontsize = 12)
+# # plt.savefig("plots/H0_histogram.pdf")
+# plt.show()
+# #-----------------------------------------------------------------------------------------------------------

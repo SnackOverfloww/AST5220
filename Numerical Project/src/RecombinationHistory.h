@@ -27,6 +27,7 @@ class RecombinationHistory{
   
     // Xe for when to switch between Saha and Peebles
     const double Xe_saha_limit = 0.99;
+    
 
     //===============================================================
     // [1] Computation of Xe (Saha and Peebles equation)
@@ -48,13 +49,16 @@ class RecombinationHistory{
     // The two things we need to solve: Xe/ne and tau
     void solve_for_optical_depth_tau();
 
+    void calculate_sound_horizon();
+
+
     // Splines contained in this class
     Spline Xe_of_x_spline{"Xe"};
-    Spline Xe_of_x_reion_spline{"Xe_reion"};
     Spline tau_of_x_spline{"tau"}; 
     Spline g_tilde_of_x_spline{"g"};  
     Spline ne_of_x_spline{"ne"}; 
     Spline log_ne_of_x_spline{"log_ne"}; 
+    Spline sound_horizon_of_x_spline{"sound"};
 
   public:
 
@@ -82,10 +86,12 @@ class RecombinationHistory{
     double dgdx_tilde_of_x(double x) const;
     double ddgddx_tilde_of_x(double x) const;
     double Xe_of_x(double x) const;
-    double Xe_of_x_reion(double x) const;
+    double Xe_of_x_reion(double x) const; //remove if you dont create both with and without reionisation splines at the same time
     double log_ne_of_x(double x) const;
     double ne_of_x(double x) const;
     double nH_of_x(double x) const;
+    double get_sound_horizon(double x) const;
+    double sound_speed(double x) const;
     double get_Yp() const;
 };
 

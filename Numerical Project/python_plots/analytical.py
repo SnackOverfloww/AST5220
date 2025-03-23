@@ -2,13 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy import constants as const
 from astropy import units as u
+# import matplotlib.ticker as ticker
+from matplotlib.ticker import ScalarFormatter
 
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy import constants as const
 from astropy import units as u
 
-plt.rcParams.update({"xtick.labelsize": 13, "ytick.labelsize": 13})
+# plt.rcParams.update({"xtick.labelsize": 13, "ytick.labelsize": 13})
 
 data = np.loadtxt("../cosmology_density_parameters.txt")
 data2 = np.loadtxt("../cosmology.txt")
@@ -109,16 +111,41 @@ plt.plot(x_scale_lam, eta_Lambda, label = "Dark energy dominated era $\\eta$", l
 plt.vlines(x = matter_radiation_eq, ymin = 0, ymax = 10**13, color = "#ff69d4", linestyle = "dotted", label = "Matter - radiation \n equality")
 plt.vlines(x = matter_dark_energy_eq, ymin = 0, ymax = 10**13, color = "#50c878", linestyle = "dotted", label = "Matter - radiation \n equality")
 plt.vlines(x = acceleration, ymin = 0, ymax = 10**13,color = "#45b6fe", linestyle = "dotted", label = "Acceleration begins")
+
 # plt.vlines(x = 0, ymin = 0, ymax = 10**13, color = "#8a00c4", linestyle = "dotted", label = "Today")
-# plt.axhline(y = 65378.8413334679, color = 'r', linestyle = '-')
-# plt.axhline(y = 11781394967.125027, color = 'r', linestyle = '-')
-# plt.axhline(y = 444734600.9098152, color = 'r', linestyle = '-')
-# plt.axhline(y = 45203002534.52784, color = 'r', linestyle = '-')
+plt.axhline(y = 51064, color = "#949494", linestyle = "dashed")
+plt.axhline(y = 10.3782 * 1e9, color = "#949494", linestyle = "dashed")
+plt.axhline(y = 7.75249 * 1e9, color = "#949494", linestyle = "dashed")
+plt.axhline(y = 3.68439 * 1e8, color = "#949494", linestyle = "dashed")
+plt.axhline(y = 42.3666 * 1e9, color = "#949494", linestyle = "dashed", linewidth = 1)
+plt.axhline(y = 38.5666 * 1e9, color = "#949494", linestyle = "dashed", linewidth = 1)
+plt.yscale("log")
 plt.xlabel("x", fontsize = 15)
 plt.ylabel("Time in years", fontsize = 15)
 plt.xlim(-14,5)
-plt.ylim(10**-0.5, 10**13)
-plt.yscale("log")
+
+
+# Set only the specific y-ticks
+y_ticks = [51064, 10380000000, 7752490000, 368439000, 42366600000, 38566600000]
+y_labels = ["51064 yrs", "10.38 Gyrs", "7.75 Gyrs", "368.4 Myrs", "42.4 Myrs", "38.6 Myrs"] 
+
+x_ticks = [-14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+x_labels = [-14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5] 
+
+
+plt.yticks(y_ticks)  # Apply to the axis object
+plt.xticks(x_ticks)  # Apply to the axis object
+# plt.gca().yaxis.tick_right()
+plt.gca().yaxis.set_major_formatter(ScalarFormatter())
+plt.gca().yaxis.get_offset_text().set_visible(False)
+plt.gca().yaxis.set_major_formatter(plt.FixedFormatter(y_labels))
+
+plt.gca().xaxis.set_major_formatter(ScalarFormatter())
+plt.gca().xaxis.get_offset_text().set_visible(False)
+plt.gca().xaxis.set_major_formatter(plt.FixedFormatter(x_labels))
+
+plt.xlim(-14, 5)
+plt.ylim(10**-0.5, 2 * 1e12)
 plt.legend(fontsize = "12")
 # plt.savefig("plots/equality_times.pdf")
 plt.show()
