@@ -182,7 +182,7 @@ plt.yticks([1, 5, 10, 50, sound_horizon_in_Mpc, 500], labels=[1, 5, 10, 50, (str
 plt.tick_params(labelsize = 14)
 plt.xlim(-12, 0)
 plt.legend(fontsize = 14)
-plt.savefig("plots/sound_horizon.pdf")
+# plt.savefig("plots/sound_horizon.pdf")
 plt.show()
 #==========================================================================================================
 
