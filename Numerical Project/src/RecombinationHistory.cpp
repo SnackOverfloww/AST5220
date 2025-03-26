@@ -450,7 +450,7 @@ void RecombinationHistory::info() const{
   std::cout << "Info about recombination/reionization history class:\n";
   std::cout << "Yp:          " << Yp          << "\n";
   std::cout << "Today we have a value of $X_e$ of " << Xe_of_x(0) << std::endl;
-  std::cout << "The freeze-out abundance of free electrons today is " << exp(log_ne_of_x(0)) <<
+  std::cout << "The freeze-out abundance of free electrons today is " << exp(log_ne_of_x(0)) << std::endl;
   std::cout << std::endl;
 } 
 
@@ -480,4 +480,3 @@ void RecombinationHistory::output(const std::string filename) const{
   };
   std::for_each(x_array.begin(), x_array.end(), print_data);
 }
-
