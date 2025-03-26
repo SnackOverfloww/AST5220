@@ -106,7 +106,8 @@ print("This corresponds to a z-value ", str.format('{0:.0f}', z_from_x(x_value_n
 # #=======================================================================
 sound_horizon_in_m = sound_horizon[x_index_for_peak_visibility_function[0][0]] 
 sound_horizon_in_Mpc = sound_horizon_in_m * const_m_to_Mpc 
-print("The sound horizon at recombination is calculated to be", str.format('{0:.2f}', sound_horizon_in_Mpc), "Mpc")
+print("The sound horizon at recombination is calculated to be", str.format('{0:.2f}'
+    , sound_horizon_in_Mpc), "Mpc. This is when we only use the numerical results (the 5000 points taken from spline), not the spline")
 # #========================================================================
 
 

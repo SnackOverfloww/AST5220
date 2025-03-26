@@ -178,11 +178,11 @@ plt.yscale("log")
 plt.xlabel("x", fontsize = 16)
 plt.ylabel("$s(x)$ [Mpc]", fontsize = 16)
 
-plt.yticks([1, 5, 10, 50, sound_horizon_in_Mpc, 500], labels=[1, 5, 10, 50, (str.format('{0:.2f}', sound_horizon_in_Mpc)), 500])  # Change to desired value
+plt.yticks([1, 5, 10, 50, 145.56, 500], labels=[1, 5, 10, 50, (str.format('{0:.2f}', 145.56)), 500])  # Change to desired value
 plt.tick_params(labelsize = 14)
 plt.xlim(-12, 0)
 plt.legend(fontsize = 14)
-# plt.savefig("plots/sound_horizon.pdf")
+plt.savefig("plots/sound_horizon.pdf")
 plt.show()
 #==========================================================================================================
 

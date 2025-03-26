@@ -38,7 +38,7 @@ void RecombinationHistory::solve_number_density_electrons(){
   //=============================================================================
   // Sets up x-array and make arrays to store X_e(x) and n_e(x) on DONE
   
-  const double xmin = -15.;
+  const double xmin = x_start;
   const double xmax = 3;
   const int    npts = 1000;
   double z_reion = 8.;
@@ -266,7 +266,7 @@ void RecombinationHistory::solve_for_optical_depth_tau(){
 
   // Set up x-arrays to integrate over. We split into three regions as we need extra points in reionisation
   const int npts = 1000;
-  int xmin = -15;
+  int xmin = x_start;
   int xmax = 3;
   Vector x_array = Utils::linspace(xmin, xmax, npts);
 
@@ -329,7 +329,7 @@ void RecombinationHistory::calculate_sound_horizon(){
 
   // Set up x-arrays to integrate over. We split into three regions as we need extra points in reionisation
   const int npts = 1000;
-  int xmin = -15;
+  int xmin = x_start;
   int xmax = 3;
   Vector x_array = Utils::linspace(xmin, xmax, npts);
 
@@ -350,9 +350,6 @@ void RecombinationHistory::calculate_sound_horizon(){
   const double OmegaB      = cosmo->get_OmegaB(0);
   const double H0          = cosmo->get_H0();
   const double OmegaR      = cosmo->get_OmegaR(0);
-  // std::cout << Hp_of_x << std::endl;  
-  // std::cout << OmegaR << std::endl; 
-
 
   double R = (4*OmegaR) / (3*OmegaB*a);
   double c_s = Constants.c * sqrt((R)/(3*(1+R)));
@@ -368,8 +365,9 @@ void RecombinationHistory::calculate_sound_horizon(){
   const double OmegaB      = cosmo->get_OmegaB(0);
   
   
-  double initial_c_s = Constants.c * sqrt(((4*OmegaR) / (3*OmegaB*(exp(-15)))) / (3*(1+((4*OmegaR) / (3*OmegaB*exp(-15))))));
-  double initial_Hp_of_x = 6.85603*pow(10,-14);
+  double initial_c_s = Constants.c * sqrt(((4*OmegaR) / (3*OmegaB*(exp(x_start)))) / (3*(1+((4*OmegaR) / (3*OmegaB*exp(x_start))))));
+  double initial_Hp_of_x = cosmo->Hp_of_x(x_start);
+  // std::cout << (initial_Hp_of_x) << std::endl;
   double initial = initial_c_s / initial_Hp_of_x;
 
   ODESolver ode;
@@ -451,6 +449,7 @@ void RecombinationHistory::info() const{
   std::cout << "Yp:          " << Yp          << "\n";
   std::cout << "Today we have a value of $X_e$ of " << Xe_of_x(0) << std::endl;
   std::cout << "The freeze-out abundance of free electrons today is " << exp(log_ne_of_x(0)) << std::endl;
+  std::cout << "The sound horizon at decoupling is " << sound_horizon_of_x_spline(-6.9854) / (3.08*pow(10,16)*pow(10,6)) << std::endl;
   std::cout << std::endl;
 } 
 
