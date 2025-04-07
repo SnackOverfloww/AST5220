@@ -1,5 +1,6 @@
 {
     "notebook.output.minimalErrorRendering": false,
+    "C_Cpp.intelliSenseEngine": "default",
     "C_Cpp.errorSquiggles": "enabled",
     "makefile.configureOnOpen": false
 }

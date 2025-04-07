@@ -22,6 +22,9 @@ int main(int argc, char **argv){
 
   // Recombination parameters
   double Yp          = 0;
+  
+  // Perturbation parameters
+  double f_nu        = 0;
 
   // Power-spectrum parameters
   double A_s         = 2.1e-9;
@@ -65,7 +68,7 @@ int main(int argc, char **argv){
 
 
   // Remove when module is completed
-  return 0;
+  // return 0;
 
   //=========================================================================
   // Module III

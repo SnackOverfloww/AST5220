@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "//wsl.localhost/Ubuntu/home/synnesjo/local/include"
+                "/home/synnesjo/local/include"
             ],
             "defines": [
                 "_DEBUG",

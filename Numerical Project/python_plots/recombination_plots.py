@@ -168,23 +168,23 @@ z_reionisation = 7.8 #change this if you want a different redshift for the reion
 # plt.show()
 # #======================================================================================================================
 
-#=========================================================================================================
-#Plotting sound horizon
-plt.figure(figsize = (9,6))
-plt.plot(x_no_reionisation, sound_horizon * const_m_to_Mpc, color = "#d30e92", label = "Sound horizon")
-plt.axvline(x = x_value_no_reionisation_visibility_peak, linestyle = "dotted", color = "#323232", label = "Decoupling (peak $\\tilde{g}(x)$)") #marks decoupling
-plt.axhline(y = sound_horizon_in_Mpc, color = "#bbbbbb", linestyle = "dashed", zorder = 1) 
-plt.yscale("log")
-plt.xlabel("x", fontsize = 16)
-plt.ylabel("$s(x)$ [Mpc]", fontsize = 16)
+# #=========================================================================================================
+# #Plotting sound horizon
+# plt.figure(figsize = (9,6))
+# plt.plot(x_no_reionisation, sound_horizon * const_m_to_Mpc, color = "#d30e92", label = "Sound horizon")
+# plt.axvline(x = x_value_no_reionisation_visibility_peak, linestyle = "dotted", color = "#323232", label = "Decoupling (peak $\\tilde{g}(x)$)") #marks decoupling
+# plt.axhline(y = sound_horizon_in_Mpc, color = "#bbbbbb", linestyle = "dashed", zorder = 1) 
+# plt.yscale("log")
+# plt.xlabel("x", fontsize = 16)
+# plt.ylabel("$s(x)$ [Mpc]", fontsize = 16)
 
-plt.yticks([1, 5, 10, 50, 145.56, 500], labels=[1, 5, 10, 50, (str.format('{0:.2f}', 145.56)), 500])  # Change to desired value
-plt.tick_params(labelsize = 14)
-plt.xlim(-12, 0)
-plt.legend(fontsize = 14)
-plt.savefig("plots/sound_horizon.pdf")
-plt.show()
-#==========================================================================================================
+# plt.yticks([1, 5, 10, 50, 145.57, 500], labels=[1, 5, 10, 50, (str.format('{0:.2f}', 145.57)), 500])  # Change to desired value
+# plt.tick_params(labelsize = 14)
+# plt.xlim(-12, 0)
+# plt.legend(fontsize = 14)
+# # plt.savefig("plots/sound_horizon.pdf")
+# plt.show()
+# #==========================================================================================================
 
 
 

@@ -6,7 +6,7 @@ from astropy import units as u
 
 plt.rcParams.update({"xtick.labelsize": 15, "ytick.labelsize": 15})
 
-data = np.loadtxt("../cosmology.txt")
+data = np.loadtxt("cosmology.txt")
 
 # xmin = -20
 # xmax = 5
@@ -36,19 +36,19 @@ print(average_density_parameters)
 
 
 # #-----------------------------------------------------------------------------------------------------------------------
-# # for plotting Hp_of_x
-# Hp_of_x_adjusted = (Hp_of_x) *(3.086*(10**19)/100)
-# print(Hp_of_x_adjusted)
+# for plotting Hp_of_x
+Hp_of_x_adjusted = (Hp_of_x) *(3.086*(10**19)/100)
+print(Hp_of_x_adjusted)
 
-# plt.figure(figsize = (10,7))
-# plt.plot(x, Hp_of_x_adjusted, color = "#fe89c8")
-# plt.xlabel("x", fontsize = 22)
-# plt.ylabel(r"${\mathcal{H}(x)}$", fontsize = 22)
-# plt.xlim(-12,0)
-# plt.ylim(10**-1, 10**3)
-# plt.yscale("log")
-# # plt.savefig("plots/Hp_of_x_plot.pdf")
-# plt.show()
+plt.figure(figsize = (10,7))
+plt.plot(x, Hp_of_x_adjusted, color = "#fe89c8")
+plt.xlabel("x", fontsize = 22)
+plt.ylabel(r"${\mathcal{H}(x)}$", fontsize = 22)
+plt.xlim(-12,0)
+plt.ylim(10**-1, 10**3)
+plt.yscale("log")
+# plt.savefig("plots/Hp_of_x_plot.pdf")
+plt.show()
 # #-----------------------------------------------------------------------------------------------------------------------
 
 # #-----------------------------------------------------------------------------------------------------------------------
