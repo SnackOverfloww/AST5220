@@ -68,8 +68,8 @@ extern struct ConstantsAndUnits {
   const int ind_vb              = 3;
   const int ind_Phi             = 4;
   const int ind_start_theta     = n_scalars;
-  const int ind_start_thetap    = ind_start_theta  + n_ell_theta;
-  const int ind_start_nu        = ind_start_thetap + n_ell_thetap;
+  const int ind_start_thetap    = ind_start_theta  + n_ell_theta  - (1 + polarization);
+  const int ind_start_nu        = ind_start_thetap + n_ell_thetap + (neutrinos - polarization);
  
   // For integration of perturbations in tight coupling regime (Only 2 photon multipoles + neutrinos needed)
   const int n_scalars_tc        = 5;
