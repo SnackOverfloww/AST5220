@@ -116,9 +116,14 @@ class Perturbations{
     double get_delta_b(const double x, const double k) const;
     double get_v_cdm(const double x, const double k) const;
     double get_v_b(const double x, const double k) const;
+    double get_v_b_derivative_x(const double x, const double k) const;
     double get_Phi(const double x, const double k) const;
+    double get_Phi_derivative_x(const double x, const double k) const;
     double get_Psi(const double x, const double k) const;
+    double get_Psi_derivative_x(const double x, const double k) const;
     double get_Pi(const double x, const double k) const;
+    double get_Pi_derivative_x(const double x, const double k) const;
+    double get_Pi_double_derivative_x(const double x, const double k) const;
     double get_Theta(const double x, const double k, const int ell) const;
     double get_Theta_p(const double x, const double k, const int ell) const;
     double get_Nu(const double x, const double k, const int ell) const;

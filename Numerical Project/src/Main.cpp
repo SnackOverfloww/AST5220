@@ -91,8 +91,8 @@ int main(int argc, char **argv){
 
   
   // Output perturbation quantities
-  double kvalue = 0.001 / Constants.Mpc;
-  pert.output(kvalue, "perturbations_k0.001_student.txt");
+  double kvalue = 0.1 / Constants.Mpc;
+  pert.output(kvalue, "perturbations_k0.1_testing.txt");
   // pert.output(kvalue, "perturbations_testing.txt");
   // pert.output(kvalue, "perturbations_k0.1_testing.txt");
   

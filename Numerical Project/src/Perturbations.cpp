@@ -21,7 +21,7 @@ void Perturbations::solve(){
   integrate_perturbations();
 
   // Compute source functions and spline the result
-  // compute_source_functions();
+  compute_source_functions();
 }
 
 
@@ -45,7 +45,7 @@ void Perturbations::integrate_perturbations(){
   int n_k = 100;
   int n_x = 10000;
 
-  Vector k_array = Utils::linspace(log10(k_start), log10(k_end), n_k);
+  Vector k_array = exp(Utils::linspace(log(k_start), log(k_end), n_k));
   Vector x_array = Utils::linspace(x_start, x_end, n_x);
   Vector x_array_tight;
   Vector x_array_full;
@@ -90,11 +90,10 @@ void Perturbations::integrate_perturbations(){
       if(ik == n_k-1) std::cout << std::endl;
     }
 
-
     // Current value of k
-    double k = pow(10.0, k_array[ik]);
+    // double k = pow(10.0, k_array[ik]);
 
-    k_array[ik] = k;
+    double k = k_array[ik];
     // for(int i = 0; i < n_k; i++){
     //   std::cout << k_array[i] << std::endl; 
     // }
@@ -480,6 +479,7 @@ Vector Perturbations::set_ic_after_tight_coupling(
   const double OmegaR_0           = cosmo->get_OmegaR(0);
   const double dtaudx_of_x        = rec->dtaudx_of_x(x); 
 
+
   // SET: Scalar quantities (Gravitational potental, baryons and CDM)
   Phi = Phi_tc;
   delta_cdm = delta_cdm_tc;
@@ -552,7 +552,10 @@ void Perturbations::compute_source_functions(){
   //=============================================================================
   // TODO: Make the x and k arrays to evaluate over and use to make the splines
   //=============================================================================
-  Vector k_array = Utils::linspace(log10(0.00005), log10(0.3), n_k);
+  Vector k_array = exp(Utils::linspace(log(k_min), log(k_max), n_k));
+  // for (int l = 0; l < k_array.size(); l++){
+  //   std::cout << k_array[l] << std::endl;
+  // }
   Vector x_array = Utils::linspace(x_start, x_end, n_x);
 
   // Make storage for the source functions (in 1D array to be able to pass it to the spline)
@@ -569,18 +572,41 @@ void Perturbations::compute_source_functions(){
       // in a 1D array for the 2D spline routine source(ix,ik) -> S_array[ix + nx * ik]
       const int index = ix + n_x * ik;
 
-      //=============================================================================
-      // We now compute the source functions
-      //=============================================================================
-      // Fetch all the things we need...
-      const double Hp             = cosmo->Hp_of_x(x);
-      const double tau            = rec->tau_of_x(x);
-      const double visibility     = rec->g_tilde_of_x(x); 
-      // ...
-      // ...
+      // Fetch all the things we need
+      bool neutrinos               = Constants.neutrinos;
+      bool polarization            = Constants.polarization;
+   
+      double a                                  = exp(x);
+      const double Hp                           = cosmo->Hp_of_x(x);
+      const double Hp_deriv                     = cosmo->dHpdx_of_x(x);
+      const double Hp_double_deriv              = cosmo->ddHpddx_of_x(x);
+      
+      const double tau                          = rec->tau_of_x(x);
+      const double visibility                   = rec->g_tilde_of_x(x);
+      const double visibility_deriv             = rec->dgdx_tilde_of_x(x);
+      const double visibility_double_deriv      = rec->ddgddx_tilde_of_x(x);
+      const double theta_1                      = get_Theta(x, k, 1);
+      const double psi                          = get_Psi(x,k);
+      const double PI                           = get_Pi(x, k);
+      const double PI_deriv                     = get_Pi_derivative_x(x, k);
+      const double PI_double_deriv              = get_Pi_double_derivative_x(x, k);
+      const double phi                          = get_Phi(x, k);
+      const double psi_deriv                    = get_Psi_derivative_x(x, k);
+      const double phi_deriv                    = get_Phi_derivative_x(x, k);
+      const double v_b                          = get_v_b(x, k);
+      const double v_b_deriv                    = get_v_b_derivative_x(x, k);
+     
+      double first_term = visibility*(theta_1 + psi + (PI/4.));
+      double second_term = exp(-tau) * (psi_deriv - phi_deriv); 
+      double third_term = -1./(Constants.c * k) * ((Hp_deriv*visibility*v_b) + (Hp * visibility_deriv * v_b) + (Hp * visibility * v_b_deriv));
+      double fourth_term = -(3./(4*pow(Constants.c, 2)*pow(k,2)))*((Hp_deriv * Hp_deriv * visibility * PI) + (Hp * Hp_double_deriv * visibility * PI)
+                            + (Hp * Hp_deriv * visibility_deriv * PI) + (Hp * Hp_deriv * visibility * PI_deriv) + (Hp_deriv * Hp *visibility_deriv * PI)
+                            + (Hp * Hp_deriv * visibility_deriv * PI) + (Hp * Hp * visibility_double_deriv * PI) + (Hp * Hp * visibility_deriv * PI_deriv)
+                            + (Hp_deriv * Hp * visibility * PI_deriv) + (Hp * Hp_deriv * visibility * PI_deriv) + (Hp * Hp * visibility_deriv * PI_deriv)
+                            + (Hp * Hp * visibility * PI_double_deriv));
 
-      // Temperatur source
-      ST_array[index] = 0.0;
+      // Temperature source
+      ST_array[index] = first_term + second_term + third_term + fourth_term;
 
       // Polarization source
       if(Constants.polarization){
@@ -591,6 +617,8 @@ void Perturbations::compute_source_functions(){
 
   // Spline the source functions
   ST_spline.create (x_array, k_array, ST_array, "Source_Temp_x_k");
+  std::cout << "spline??" << std::endl;
+  
   if(Constants.polarization){
     SE_spline.create (x_array, k_array, SE_array, "Source_Pol_x_k");
   }
@@ -872,14 +900,29 @@ double Perturbations::get_v_cdm(const double x, const double k) const{
 double Perturbations::get_v_b(const double x, const double k) const{
   return v_b_spline(x,k);
 }
+double Perturbations::get_v_b_derivative_x(const double x, const double k) const{
+  return v_b_spline.deriv_x(x,k);
+}
 double Perturbations::get_Phi(const double x, const double k) const{
   return Phi_spline(x,k);
+}
+double Perturbations::get_Phi_derivative_x(const double x, const double k) const{
+  return Phi_spline.deriv_x(x,k);
 }
 double Perturbations::get_Psi(const double x, const double k) const{
   return Psi_spline(x,k);
 }
+double Perturbations::get_Psi_derivative_x(const double x, const double k) const{
+  return Psi_spline.deriv_x(x,k);
+}
 double Perturbations::get_Pi(const double x, const double k) const{
   return Pi_spline(x,k);
+}
+double Perturbations::get_Pi_derivative_x(const double x, const double k) const{
+  return Pi_spline.deriv_x(x,k);
+}
+double Perturbations::get_Pi_double_derivative_x(const double x, const double k) const{
+  return Pi_spline.deriv_xx(x,k);
 }
 double Perturbations::get_Source_T(const double x, const double k) const{
   return ST_spline(x,k);
@@ -983,10 +1026,10 @@ void Perturbations::output(const double k, const std::string filename) const{
       fp << get_Theta_p(x,k, 2)        << " ";
     }
     fp << cosmo->eta_of_x(x)            << " ";
-    // fp << get_Source_T(x,k)  << " ";
-    // fp << get_Source_T(x,k) * Utils::j_ell(5,   arg)           << " ";
-    // fp << get_Source_T(x,k) * Utils::j_ell(50,  arg)           << " ";
-    // fp << get_Source_T(x,k) * Utils::j_ell(500, arg)           << " ";
+    fp << get_Source_T(x,k)  << " ";
+    fp << get_Source_T(x,k) * Utils::j_ell(5,   arg)           << " ";
+    fp << get_Source_T(x,k) * Utils::j_ell(50,  arg)           << " ";
+    fp << get_Source_T(x,k) * Utils::j_ell(500, arg)           << " ";
     fp << "\n";
   };
   std::for_each(x_array.begin(), x_array.end(), print_data);
