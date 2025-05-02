@@ -45,16 +45,17 @@ extern struct ConstantsAndUnits {
   const double xhi1        = 4.0 * epsilon_0;             // Ionization energy for singly ionized Helium
   
   // Min and max k-value
-  const double k_min = 0.00005 / Mpc;
-  const double k_max = 0.3     / Mpc;
+  const double k_min = 0.001  / Mpc;
+  const double k_max = 0.3    / Mpc;
   
   // Min and max x-value
-  const double x_start = -22;
+  const double x_start = -18.0;
   const double x_end   = 0.0;
 
   // Include polarization and/or neutrinos?
   const bool polarization  = true;
   const bool neutrinos     = true;
+
 
   // For integration of perturbations (number of equations and positions in arrays)
   const int n_scalars           = 5;
@@ -68,7 +69,7 @@ extern struct ConstantsAndUnits {
   const int ind_vb              = 3;
   const int ind_Phi             = 4;
   const int ind_start_theta     = n_scalars;
-  const int ind_start_thetap    = ind_start_theta  + n_ell_theta  - (1 + polarization);
+  const int ind_start_thetap    = ind_start_theta  + n_ell_theta  - (1 - polarization);
   const int ind_start_nu        = ind_start_thetap + n_ell_thetap + (neutrinos - polarization);
  
   // For integration of perturbations in tight coupling regime (Only 2 photon multipoles + neutrinos needed)
@@ -83,8 +84,8 @@ extern struct ConstantsAndUnits {
   const int ind_vb_tc           = 3;
   const int ind_Phi_tc          = 4;
   const int ind_start_theta_tc  = n_scalars_tc;
-  const int ind_start_thetap_tc = ind_start_theta_tc  + n_ell_theta_tc;
-  const int ind_start_nu_tc     = ind_start_thetap_tc + n_ell_thetap_tc;
+  const int ind_start_thetap_tc = ind_start_theta_tc  + n_ell_theta_tc  - (1 - polarization);
+  const int ind_start_nu_tc     = ind_start_thetap_tc + n_ell_thetap_tc + (neutrinos - polarization);
 
 } Constants;
 

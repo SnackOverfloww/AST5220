@@ -2,10 +2,10 @@
 import numpy as np
 
 #Load data for recombination history
-data_no_reionisation = np.loadtxt("../recombination_no_reionisation.txt")
-data_with_reionisation = np.loadtxt("../recombination_with_reionisation.txt")
-data_just_saha = np.loadtxt("../recombination_just_saha.txt")
-
+data_no_reionisation = np.genfromtxt("recombination_no_reionisation.txt")
+data_with_reionisation = np.genfromtxt("recombination_with_reionisation.txt")
+data_just_saha = np.genfromtxt("recombination_just_saha.txt")
+print(data_just_saha)
 
 #Data without reionization
 x_no_reionisation = data_no_reionisation[:,0]

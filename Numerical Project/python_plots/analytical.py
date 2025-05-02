@@ -12,8 +12,8 @@ from astropy import units as u
 
 # plt.rcParams.update({"xtick.labelsize": 13, "ytick.labelsize": 13})
 
-data = np.loadtxt("../cosmology_density_parameters.txt")
-data2 = np.loadtxt("../cosmology.txt")
+data = np.loadtxt("cosmology_density_parameters.txt")
+data2 = np.loadtxt("cosmology.txt")
 
 x_values = data[:,0]
 matter = data[:,1] + data[:,2]

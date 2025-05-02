@@ -1,7 +1,8 @@
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-exec(open("src_recombination/reading_data_recombination.py").read())
+exec(open("python_plots/src_recombination/reading_data_recombination.py").read())
 
 const_m_to_Mpc = 1 / (3.08567758 * pow(10, 16) * pow(10, 6)) 
 

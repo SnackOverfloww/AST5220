@@ -12,7 +12,7 @@ int main(int argc, char **argv){
   // Parameters
   //=========================================================================
 
-  // Background parameters
+  // Background parameters for initial background cosmology 
   double h           = 0.67;
   double OmegaB      = 0.05;
   double OmegaCDM    = 0.267;
@@ -20,11 +20,19 @@ int main(int argc, char **argv){
   double Neff        = 3.046;
   double TCMB        = 2.7255;
 
+  // // Background parameters from comparison plots (Hans Winter) 
+  // double h           = 0.7;
+  // double OmegaB      = 0.05;
+  // double OmegaCDM    = 0.45;
+  // double OmegaK      = 0.0;
+  // double Neff        = 0.0;
+  // double TCMB        = 2.7255;
+
   // Recombination parameters
   double Yp          = 0;
   
   // Perturbation parameters
-  double f_nu        = 0;
+  // double f_nu        = 0;
 
   // Power-spectrum parameters
   double A_s         = 2.1e-9;
@@ -73,15 +81,21 @@ int main(int argc, char **argv){
   //=========================================================================
   // Module III
   //=========================================================================
- 
+  
+
   // Solve the perturbations
   Perturbations pert(&cosmo, &rec);
   pert.solve();
   pert.info();
+
+
   
   // Output perturbation quantities
-  double kvalue = 0.01 / Constants.Mpc;
-  pert.output(kvalue, "perturbations_k0.01.txt");
+  double kvalue = 0.001 / Constants.Mpc;
+  pert.output(kvalue, "perturbations_k0.001_student.txt");
+  // pert.output(kvalue, "perturbations_testing.txt");
+  // pert.output(kvalue, "perturbations_k0.1_testing.txt");
+  
   
   // Remove when module is completed
   return 0;

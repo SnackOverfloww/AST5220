@@ -5,7 +5,7 @@ import matplotlib.ticker as ticker
 
 # plt.rcParams.update({"xtick.labelsize": 12, "ytick.labelsize": 12})
 
-exec(open("src_recombination/calculating_recombination.py").read())
+exec(open("python_plots/src_recombination/calculating_recombination.py").read())
 
 z_reionisation = 7.8 #change this if you want a different redshift for the reionisation
 
