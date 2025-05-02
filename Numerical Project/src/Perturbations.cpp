@@ -595,6 +595,8 @@ void Perturbations::compute_source_functions(){
       const double phi_deriv                    = get_Phi_derivative_x(x, k);
       const double v_b                          = get_v_b(x, k);
       const double v_b_deriv                    = get_v_b_derivative_x(x, k);
+      const double eta_0                        = cosmo->eta_of_x(0.0); 
+      const double eta                          = cosmo->eta_of_x(x);
      
       double first_term = visibility*(theta_1 + psi + (PI/4.));
       double second_term = exp(-tau) * (psi_deriv - phi_deriv); 
@@ -610,7 +612,7 @@ void Perturbations::compute_source_functions(){
 
       // Polarization source
       if(Constants.polarization){
-        SE_array[index] = 0.0;
+        SE_array[index] = (3. * visibility * PI) / (4 * pow(k, 2) * pow(eta_0 - eta, 2));
       }
     }
   }
