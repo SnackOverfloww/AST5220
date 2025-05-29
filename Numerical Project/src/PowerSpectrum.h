@@ -114,9 +114,15 @@ class PowerSpectrum {
     double get_cell_TT(const double ell) const;
     double get_cell_TE(const double ell) const;
     double get_cell_EE(const double ell) const;
+    double get_transfer_function(const double k, int ell_ix) const;
 
     // Output Cells in units of l(l+1)/2pi (muK)^2
     void output(std::string filename) const;
+    void output_transfer(std::string filename, const int ell_ix_1, const int ell_ix_2, 
+        const int ell_ix_3, const int ell_ix_4, const int ell_ix_5) const;
+    void output_transfer_squared(std::string filename, const int ell_ix_1, 
+        const int ell_ix_2, const int ell_ix_3, const int ell_ix_4, const int ell_ix_5) const;
+    void output_pofk(std::string filename, const double x) const;
 };
 
 #endif

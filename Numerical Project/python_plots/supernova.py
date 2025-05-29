@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from astropy import constants as const
 from astropy import units as u
 
-cosmology = np.loadtxt("../cosmology.txt")
-supernova = np.loadtxt("../data/supernovadata.txt")
+cosmology = np.loadtxt("cosmology.txt")
+supernova = np.loadtxt("data/supernovadata.txt")
 
 x = cosmology[:,0]
 luminosity_distance_num = (cosmology[:,12] / (3.08*(10**9)*(10**16)))

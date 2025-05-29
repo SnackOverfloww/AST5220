@@ -6,8 +6,8 @@
 #include <algorithm>
 #include <chrono>
 #include <map>
-// #include </../../../local/include/gsl/gsl_sf_bessel.h>
-//#include <gsl_sf_bessel.h>
+#include <../../local/include/gsl/gsl_sf_bessel.h>
+#include <gsl/gsl_sf_bessel.h>
 #ifdef _COMPLEX_BESSEL
 #include <complex_bessel.h>
 #endif
@@ -45,8 +45,9 @@ extern struct ConstantsAndUnits {
   const double xhi1        = 4.0 * epsilon_0;             // Ionization energy for singly ionized Helium
   
   // Min and max k-value
-  const double k_min = 0.001  / Mpc;
-  const double k_max = 0.3    / Mpc;
+  const double k_min = 0.00005  / Mpc;
+  const double k_max = 1    / Mpc;
+  const double k_max_los_integration = 0.3    / Mpc;
   
   // Min and max x-value
   const double x_start = -18.0;
@@ -54,7 +55,10 @@ extern struct ConstantsAndUnits {
 
   // Include polarization and/or neutrinos?
   const bool neutrinos     = true;
-  const bool polarization  = false;
+  const bool polarization  = true;
+
+
+  
 
   // For integration of perturbations (number of equations and positions in arrays)
   const int n_scalars           = 5;

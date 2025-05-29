@@ -92,13 +92,11 @@ int main(int argc, char **argv){
   
   // Output perturbation quantities
   double kvalue = 0.1 / Constants.Mpc;
-  pert.output(kvalue, "perturbations_k0.1_testing.txt");
-  // pert.output(kvalue, "perturbations_testing.txt");
-  // pert.output(kvalue, "perturbations_k0.1_testing.txt");
+  pert.output(kvalue, "perturbations_k0.1_student.txt");
   
   
   // Remove when module is completed
-  return 0;
+  // return 0;
   
   //=========================================================================
   // Module IV
@@ -106,7 +104,10 @@ int main(int argc, char **argv){
 
   PowerSpectrum power(&cosmo, &rec, &pert, A_s, n_s, kpivot_mpc);
   power.solve();
-  power.output("cells.txt");
+  power.output("C_ells_all_sf_terms_student.txt");
+  power.output_transfer("transfer_function.txt", 7, 25, 35, 45, 55);
+  // power.output_transfer("transfer_function.txt", 4, 19, 24, 32, 42);
+  power.output_pofk("matter_power_spectrum.txt", 0);
   
   // Remove when module is completed
   return 0;

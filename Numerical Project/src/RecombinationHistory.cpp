@@ -39,7 +39,7 @@ void RecombinationHistory::solve_number_density_electrons(){
   // Sets up x-array and make arrays to store X_e(x) and n_e(x) on DONE
   
   const double xmin = x_start;
-  const double xmax = 3;
+  const double xmax = x_end;
   const int    npts = 1000;
   double z_reion = 8.;
   double delta_z_reion = 0.5;
@@ -55,7 +55,7 @@ void RecombinationHistory::solve_number_density_electrons(){
   bool just_saha = false;
   bool saha_regime = true;
   // std::cout << Xe_saha_limit << std::endl;
-  bool reionisation = false; //change this based on whether you want reionisation or not
+  bool reionisation = true; //change this based on whether you want reionisation or not
   for(int i = 0; i < npts ; i++){
 
     //==================================================================
@@ -267,7 +267,7 @@ void RecombinationHistory::solve_for_optical_depth_tau(){
   // Set up x-arrays to integrate over. We split into three regions as we need extra points in reionisation
   const int npts = 1000;
   int xmin = x_start;
-  int xmax = 3;
+  int xmax = 0;
   Vector x_array = Utils::linspace(xmin, xmax, npts);
 
   // The ODE system dtau/dx, dtau_noreion/dx and dtau_baryon/dx
@@ -330,7 +330,7 @@ void RecombinationHistory::calculate_sound_horizon(){
   // Set up x-arrays to integrate over. We split into three regions as we need extra points in reionisation
   const int npts = 1000;
   int xmin = x_start;
-  int xmax = 3;
+  int xmax = 0;
   Vector x_array = Utils::linspace(xmin, xmax, npts);
 
   // The ODE system dtau/dx, dtau_noreion/dx and dtau_baryon/dx

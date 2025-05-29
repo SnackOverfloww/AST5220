@@ -114,7 +114,7 @@ plt.xlim(-14,5)
 plt.ylim(10**-0.5, 10**13)
 plt.yscale("log")
 plt.legend(fontsize = "12")
-# plt.savefig("plots/equality_times.pdf")
+# plt.savefig("python_plots/plots/equality_times.pdf")
 plt.show()
     
     

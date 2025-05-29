@@ -20,7 +20,7 @@ spline_data_0_01_student_no_n_or_p = np.loadtxt("perturbations_k0.01_student_no_
 spline_data_0_1_student_no_n_or_p = np.loadtxt("perturbations_k0.1_student_no_n_or_p.txt")
 
 
-spline_data_0_1_testing= np.loadtxt("perturbations_k0.1_testing.txt")
+# spline_data_0_1_testing= np.loadtxt("perturbations_k0.1_testing.txt")
 
 
 # Array of x-values - these are the same for all textfiles
@@ -207,21 +207,21 @@ eta_values_10_student = spline_data_10_student[:,14]
 
 
 #=======================================================================
-Theta_0_values_0_1_testing = spline_data_0_1_testing[:,1]
-Theta_1_values_0_1_testing = spline_data_0_1_testing[:,2]
-Theta_2_values_0_1_testing = spline_data_0_1_testing[:,3]
-Phi_values_0_1_testing = spline_data_0_1_testing[:,4]
-delta_cdm_values_0_1_testing = spline_data_0_1_testing[:,5]
-delta_b_values_0_1_testing = spline_data_0_1_testing[:,6]
-v_cdm_values_0_1_testing = spline_data_0_1_testing[:,7]
-v_b_values_0_1_testing = spline_data_0_1_testing[:,8]
-Psi_values_0_1_testing = spline_data_0_1_testing[:,9]
-Pi_values_0_1_testing = spline_data_0_1_testing[:,10]
-Nu_0_values_0_1_testing = spline_data_0_1_testing[:,11]
-Nu_1_values_0_1_testing = spline_data_0_1_testing[:,12]
-Nu_2_values_0_1_testing = spline_data_0_1_testing[:,13]
-Thetap_0_values_0_1_testing = spline_data_0_1_testing[:,14]
-Thetap_1_values_0_1_testing = spline_data_0_1_testing[:,15]
-Thetap_2_values_0_1_testing = spline_data_0_1_testing[:,16]
-eta_values_0_1_testing = spline_data_0_1_testing[:,17]
-source_values_0_1_testing = spline_data_0_1_testing[:,18]
+# Theta_0_values_0_1_testing = spline_data_0_1_testing[:,1]
+# Theta_1_values_0_1_testing = spline_data_0_1_testing[:,2]
+# Theta_2_values_0_1_testing = spline_data_0_1_testing[:,3]
+# Phi_values_0_1_testing = spline_data_0_1_testing[:,4]
+# delta_cdm_values_0_1_testing = spline_data_0_1_testing[:,5]
+# delta_b_values_0_1_testing = spline_data_0_1_testing[:,6]
+# v_cdm_values_0_1_testing = spline_data_0_1_testing[:,7]
+# v_b_values_0_1_testing = spline_data_0_1_testing[:,8]
+# Psi_values_0_1_testing = spline_data_0_1_testing[:,9]
+# Pi_values_0_1_testing = spline_data_0_1_testing[:,10]
+# Nu_0_values_0_1_testing = spline_data_0_1_testing[:,11]
+# Nu_1_values_0_1_testing = spline_data_0_1_testing[:,12]
+# Nu_2_values_0_1_testing = spline_data_0_1_testing[:,13]
+# Thetap_0_values_0_1_testing = spline_data_0_1_testing[:,14]
+# Thetap_1_values_0_1_testing = spline_data_0_1_testing[:,15]
+# Thetap_2_values_0_1_testing = spline_data_0_1_testing[:,16]
+# eta_values_0_1_testing = spline_data_0_1_testing[:,17]
+# source_values_0_1_testing = spline_data_0_1_testing[:,18]

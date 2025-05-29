@@ -16,7 +16,7 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 # plt.plot(x_values, Theta_0_values_0_1_hw, label = "k = 0.1/Mpc", color = "#f1b2e1", zorder = 0)
 # plt.xticks([-18, -16, -14, -12, -10, -8, -6, -4, -2, 0])
 # plt.legend(loc = "upper left")
-# plt.savefig("python_plots/plots/perturbations/theta_0_plot_hw.pdf")
+# # plt.savefig("python_plots/plots/perturbations/theta_0_plot_hw.pdf")
 # plt.show()
 
 # #Theta_1
@@ -141,7 +141,7 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 #     ax.tick_params(axis='both', labelsize=11)
 #     ax.legend(fontsize = 10)
 
-# plt.savefig("python_plots/plots/perturbations/v_cdm_v_b_v_gamma_v_nu_plot_student.pdf")
+# # plt.savefig("python_plots/plots/perturbations/v_cdm_v_b_v_gamma_v_nu_plot_student.pdf")
 # plt.show()
 
 
@@ -279,8 +279,8 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 
 # # Theta_0 + Psi
 # plt.figure(figsize=(10,6))
-# plt.plot(x_values, Theta_0_values_0_3_student + Psi_values_0_3_student, label = "$\Theta_0 + \Psi$, $k = 0.3/$Mpc", color = "#4b006e")
-# plt.plot(x_values[:5700], -0.8*np.cos(0.3 * (1./3.08567758e22) * eta_values_0_3_student[:5700] / np.sqrt(3)), label = "$\Theta_0 + \Psi$ analytical, $k = 0.3/$Mpc",  color = "#f1b2e1", linestyle = "dashed")
+# plt.plot(x_values, Theta_0_values_0_3_student + Psi_values_0_3_student, label = "$\Theta_0 + \Psi$, $k = 0.3$", color = "#4b006e")
+# plt.plot(x_values[:5700], -0.8*np.cos(0.3 * (1./3.08567758e22) * eta_values_0_3_student[:5700] / np.sqrt(3)), label = "$\Theta_0 + \Psi$ analytical, $k = 0.3$",  color = "#f1b2e1", linestyle = "dashed")
 # plt.axvline(x = x_value_horizon_0_3, color = "black", linestyle = "dashed", label = "Horizon crossing")
 # plt.axvline(x = -8.132, color = "#8e8e8e", linestyle = "dotted", label = "Matter-radiation equality")
 # plt.text(-17.4,-0.6, "$k=0.3$", fontsize = 18, color='black')
@@ -309,7 +309,8 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 
 # # Analytical delta_CDM
 # plt.plot(x_values, np.abs(delta_cdm_values_0_3_student), label = "$\delta_\mathrm{CDM}$", color = "#4b006e")
-# plt.plot(x_values[:3334], 0.065*np.abs((x_values[:3334])), label = "Analytical radiation dominated era", color = "#d9328a", linestyle = "dashed")
+# # plt.plot(x_values[:3334], -0.065*(((x_values[:3334]))), label = "Analytical radiation dominated era", color = "#d9328a", linestyle = "dashed")
+# plt.hlines(0.9*1, -18, -12, color = "#d9328a", linestyle = "dashed")
 # plt.plot(x_values[6667:], 39000*np.exp(x_values[6667:]), label = "Analytical matter-dominated era", color = "#f1b2e1", linestyle = "dashed")
 # plt.axvline(x = x_value_horizon_0_3, color = "black", linestyle = "dashed", label = "Horizon crossing")
 # plt.axvline(x = -8.132, color = "#8e8e8e", linestyle = "dotted", label = "Matter-radiation equality")
@@ -319,7 +320,11 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 # plt.xlabel("x", fontsize = 15)
 # plt.legend(loc = "upper left", fontsize = 11)
 # plt.yscale("log")
-# plt.savefig("python_plots/plots/perturbations/testing_delta_cdm_analytical_plot_student.pdf")
+# # plt.savefig("python_plots/plots/perturbations/testing_delta_cdm_analytical_plot_student.pdf")
+# plt.show()
+
+# plt.plot(x_values, source_values_0_1_testing, color = "red")
+# plt.xlim(-8, 0)
 # plt.show()
 
 

@@ -303,6 +303,11 @@ void BackgroundCosmology::info() const{
   std::cout << "Matter-dark energy equality occur at a time " << t_of_x(-0.2558189708133) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "The universe starts to accelerate at a time " << t_of_x(-0.4868680309999) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.c * 60*60*24*365) << " yrs \n";
+  
+  std::cout << "The conformal Hubble constant at matter radiation equality is: " << Hp_of_x(-8.131921133813) * Constants.Mpc / Constants.c << std::endl;
+  
+  std::cout << "Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.Mpc) << " Mpc \n";
+  
   std::cout << "Matter-dark energy equality occur at a conformal time " << eta_of_x(-0.2558189708133) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "The universe starts to accelerate at a conformal time " << eta_of_x(-0.4868680309999) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "The conformal time of the Universe is " << eta_of_x(0) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
@@ -315,6 +320,8 @@ void BackgroundCosmology::info() const{
             << t_of_x(-6.9854) / (60*60*24*365) << " yrs \n";
   std::cout << "The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
             << eta_of_x(-6.9854) / (Constants.c * 60*60*24*365 * pow(10,6)) << " Myrs \n";
+  std::cout << "The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+            << eta_of_x(-6.9854) / (Constants.Mpc) << " Mpc \n";
   //std::cout << "H0:        " << H0        << "\n";
   std::cout << std::endl;
 } 
@@ -324,7 +331,7 @@ void BackgroundCosmology::info() const{
 //====================================================
 void BackgroundCosmology::output(const std::string filename) const{
   const double x_min = x_start;
-  const double x_max =  0;
+  const double x_max =  5;
   const int    n_pts =  1000;
   
   Vector x_array = Utils::linspace(x_min, x_max, n_pts);
@@ -344,6 +351,7 @@ void BackgroundCosmology::output(const std::string filename) const{
     fp << get_OmegaK(x)      << " ";
     fp << t_of_x(x)          << " ";
     fp << get_luminosity_distance_of_x(x) << " ";
+    fp << get_angular_diameter_distance_of_x(x) << " ";
     // fp << H0                 << " ";
     // fp << get_comoving_distance_of_x(x) << " ";
     // fp << calculating_r_of_chi(x) << " ";

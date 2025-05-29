@@ -155,6 +155,10 @@ namespace Utils{
     // to avoid issues with the library functions failing to compute it
     if(ell >= 10 && x < (1.0 - 2.6/sqrt(ell)) * ell) return 0.0;
 
+    if(ell < 500 && x > 9000) return 0.0; 
+    return gsl_sf_bessel_jl(ell, x);
+
+
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || (__cplusplus >= 201703L))
     // If you have a c++17 compiler you can use this
     
@@ -170,8 +174,8 @@ namespace Utils{
     // to avoid issues with this (these large values not very relevant for us anyway)
     if(ell < 500 && x > 9000) return 0.0; 
 
-    //return gsl_sf_bessel_jl(ell, x);
-    return 0;
+    return gsl_sf_bessel_jl(ell, x);
+    //return 0;
 #endif
   }
 

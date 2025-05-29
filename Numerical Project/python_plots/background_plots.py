@@ -1,4 +1,5 @@
-exec(open("src_background/analytical.py").read())
+exec(open("python_plots/src_background/analytical.py").read())
+
 
 #Plotting the plot for eta(x), t(x), equality times, and beginning of acceleration
 plt.figure(figsize = (16,8))
@@ -14,7 +15,6 @@ plt.vlines(x = matter_radiation_eq, ymin = 0, ymax = 10**13, color = "#ff69d4", 
 plt.vlines(x = matter_dark_energy_eq, ymin = 0, ymax = 10**13, color = "#50c878", linestyle = "dotted", label = "Matter - radiation \n equality")
 plt.vlines(x = acceleration, ymin = 0, ymax = 10**13,color = "#45b6fe", linestyle = "dotted", label = "Acceleration begins")
 plt.axvline(x = matter_radiation_eq_eta, linestyle=(0, (2, 2)), color = "#545454", label = "Reionisation ($z=7.8$)")
-
 # plt.vlines(x = 0, ymin = 0, ymax = 10**13, color = "#8a00c4", linestyle = "dotted", label = "Today")
 # plt.axhline(y = 65378.8413334679, color = 'r', linestyle = '-')
 # plt.axhline(y = 11781394967.125027, color = 'r', linestyle = '-')
@@ -26,5 +26,5 @@ plt.xlim(-14,5)
 plt.ylim(10**-0.5, 10**13)
 plt.yscale("log")
 plt.legend(fontsize = "12")
-# plt.savefig("plots/equality_times.pdf")
+plt.savefig("python_plots/plots/correct_equality_times.pdf")
 plt.show()
