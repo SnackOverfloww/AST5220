@@ -127,7 +127,7 @@ plt.xlim(-14,5)
 
 # Set only the specific y-ticks
 y_ticks = [51064, 10380000000, 7752490000, 368439000, 42366600000, 38566600000]
-y_labels = ["51064 yrs", " ", " ", "368.4 Myrs", " ", " "] 
+y_labels = ["51064 yrs", " ", " ", "368.44 Myrs", " ", " "] 
 
 x_ticks = [-14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
 x_labels = [-14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5] 
@@ -149,7 +149,7 @@ plt.ylim(10**-0.5, 2 * 1e12)
 plt.legend(fontsize = "12")
 plt.text(-15.3, 50e9, "46.32 Gyrs", fontsize = 10, color='black')
 plt.text(-15.3, 25e9, "38.57 Gyrs", fontsize = 10, color='black')
-plt.text(-15.3, 10.5e9, "13.86 Gyrs", fontsize = 10, color='black')
+plt.text(-15.3, 10.5e9, "10.38 Gyrs", fontsize = 10, color='black')
 plt.text(-15.3, 5e9, "7.75 Gyrs", fontsize = 10, color='black')
 
 plt.savefig("python_plots/plots/new_equality_times.pdf")

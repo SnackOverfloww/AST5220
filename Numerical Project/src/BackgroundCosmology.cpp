@@ -58,8 +58,6 @@ void BackgroundCosmology::solve(){
   ODESolver ode;
 
   Vector initial_condition_eta{Constants.c / Hp_of_x(xmin)};
-  // std::cout << Constants.c / Hp_of_x(xmin) << std::endl;
-  // std::cout << Hp_of_x(xmin) << std::endl;
   
   ode.solve(detadx, x_array, initial_condition_eta);
   auto eta_array = ode.get_data_by_component(0);
@@ -297,30 +295,29 @@ void BackgroundCosmology::info() const{
   std::cout << "Neff:        " << Neff        << "\n";
   std::cout << "h:           " << h           << "\n";
   std::cout << "TCMB:        " << TCMB        << "\n";
-  std::cout << "H0:          " << H0          << "\n";
-  std::cout << "The age of the Universe is " << t_of_x(0) / (60*60*24*365*pow(10,9))<< " Gyrs \n";
-  std::cout << "Matter-radiation equality occur at a time " << t_of_x(-8.131921133813) / (60*60*24*365) << " yrs \n";
-  std::cout << "Matter-dark energy equality occur at a time " << t_of_x(-0.2558189708133) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
-  std::cout << "The universe starts to accelerate at a time " << t_of_x(-0.4868680309999) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
-  std::cout << "Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.c * 60*60*24*365) << " yrs \n";
-  
-  std::cout << "The conformal Hubble constant at matter radiation equality is: " << Hp_of_x(-8.131921133813) * Constants.Mpc / Constants.c << std::endl;
-  
-  std::cout << "Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.Mpc) << " Mpc \n";
-  
-  std::cout << "Matter-dark energy equality occur at a conformal time " << eta_of_x(-0.2558189708133) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
-  std::cout << "The universe starts to accelerate at a conformal time " << eta_of_x(-0.4868680309999) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
-  std::cout << "The conformal time of the Universe is " << eta_of_x(0) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "H0:          " << H0          << "\n\n";
+  std::cout << "Some calculated values from the background cosmology: " << "\n";
+  std::cout << "-The age of the Universe is " << t_of_x(0) / (60*60*24*365*pow(10,9))<< " Gyrs \n";
+  std::cout << "-Matter-radiation equality occur at a time " << t_of_x(-8.131921133813) / (60*60*24*365) << " yrs \n";
+  std::cout << "-Matter-dark energy equality occur at a time " << t_of_x(-0.2558189708133) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "-The universe starts to accelerate at a time " << t_of_x(-0.4868680309999) / (60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "-Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.c * 60*60*24*365)/pow(10,6) << " Myrs, corresponding to a conformal time of " << eta_of_x(-8.131921133813) / (Constants.Mpc) << " Mpc"  << "\n";
+  std::cout << "-The conformal Hubble constant at matter radiation equality is " << Hp_of_x(-8.131921133813) * Constants.Mpc / Constants.c * pow(10,3)<< " kpc" <<std::endl;
+  std::cout << "-Matter-radiation equality occur at a conformal time " << eta_of_x(-8.131921133813) / (Constants.Mpc) << " Mpc \n";
+  std::cout << "-Matter-dark energy equality occur at a conformal time " << eta_of_x(-0.2558189708133) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "-The universe starts to accelerate at a conformal time " << eta_of_x(-0.4868680309999) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
+  std::cout << "-The conformal time of the Universe is " << eta_of_x(0) / (Constants.c * 60*60*24*365*pow(10,9)) << " Gyrs \n";
   std::cout << "\n" << std::endl;
   // std::cout << "The conformal time for the time of last scattering is " << eta_of_x(-6.9854) / (Constants.c * 60*60*24*365*pow(10,6)) << " Myrs \n";
   // std::cout << "The time for the time of last scattering is " << t_of_x(-6.9854) / (60*60*24*365) << " yrs \n";
-  std::cout << "The time for when recombination happens, using Xe = 0.1, is " << t_of_x(-6.9866) / (60*60*24*365) << " yrs \n";
-  std::cout << "The conformal time for when recombination happens, using Xe = 0.1, is " << eta_of_x(-6.9866) / (Constants.c * 60*60*24*365*pow(10, 6)) << " Myrs \n";
-  std::cout << "The time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+  std::cout << "Some calculated values from the recombination history: " << "\n";
+  std::cout << "-The time for when recombination happens, using Xe = 0.1, is " << t_of_x(-6.9866) / (60*60*24*365) << " yrs \n";
+  std::cout << "-The conformal time for when recombination happens, using Xe = 0.1, is " << eta_of_x(-6.9866) / (Constants.c * 60*60*24*365*pow(10, 6)) << " Myrs \n";
+  std::cout << "-The time for when the surface of last scattering occurs, using the peak of visibility function, is " 
             << t_of_x(-6.9854) / (60*60*24*365) << " yrs \n";
-  std::cout << "The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+  std::cout << "-The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
             << eta_of_x(-6.9854) / (Constants.c * 60*60*24*365 * pow(10,6)) << " Myrs \n";
-  std::cout << "The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
+  std::cout << "-The conformal time for when the surface of last scattering occurs, using the peak of visibility function, is " 
             << eta_of_x(-6.9854) / (Constants.Mpc) << " Mpc \n";
   //std::cout << "H0:        " << H0        << "\n";
   std::cout << std::endl;

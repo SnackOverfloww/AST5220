@@ -109,40 +109,40 @@ exec(open("python_plots/src_perturbations/calculating_horizon.py").read())
 
 
 # # v_cdm, v_b and v_photons k=0.1, k = 0.01, k = 0.001 
-# fig, axs = plt.subplots(3, 1, figsize = (6,15))
-# axs[0].plot(x_values, -3*Theta_1_values_0_1_student, label = "$v_\gamma$", color = "#f1b2e1")
-# axs[0].plot(x_values, np.abs(v_cdm_values_0_1_student), label = "$v_{cdm}$", color = "#4b006e")
-# axs[0].plot(x_values, np.abs(v_b_values_0_1_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
-# axs[0].plot(x_values, -3*Nu_1_values_0_1_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
-# axs[0].axvline(x = x_value_horizon_0_1, color = "#4f4f4f", linestyle = (0, (3, 1, 1, 1, 1, 1)), label = "Horizon crossing", zorder = 0)
-# axs[0].text(-18, 1, "$k = 0.1$", fontsize = 11, color='black')
+fig, axs = plt.subplots(3, 1, figsize = (6,15))
+axs[0].plot(x_values, -3*Theta_1_values_0_1_student, label = "$v_\gamma$", color = "#f1b2e1")
+axs[0].plot(x_values, np.abs(v_cdm_values_0_1_student), label = "$v_{cdm}$", color = "#4b006e")
+axs[0].plot(x_values, np.abs(v_b_values_0_1_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
+axs[0].plot(x_values, -3*Nu_1_values_0_1_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
+axs[0].axvline(x = x_value_horizon_0_1, color = "#4f4f4f", linestyle = (0, (3, 1, 1, 1, 1, 1)), label = "Horizon crossing", zorder = 0)
+axs[0].text(-18, 1, "$k = 0.1$", fontsize = 11, color='black')
 
 
-# axs[1].plot(x_values, -3*Theta_1_values_0_01_student, label = "$v_\gamma$", color = "#f1b2e1")
-# axs[1].plot(x_values, np.abs(v_cdm_values_0_01_student), label = "$v_\mathrm{CDM}$", color = "#4b006e")
-# axs[1].plot(x_values, np.abs(v_b_values_0_01_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
-# axs[1].plot(x_values, -3*Nu_1_values_0_01_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
-# axs[1].axvline(x = x_value_horizon_0_01, color = "#4f4f4f", linestyle = "solid", label = "Horizon crossing", zorder = 0)
-# axs[1].text(-18, 0.6, "$k = 0.01$", fontsize = 11, color='black')
+axs[1].plot(x_values, -3*Theta_1_values_0_01_student, label = "$v_\gamma$", color = "#f1b2e1")
+axs[1].plot(x_values, np.abs(v_cdm_values_0_01_student), label = "$v_\mathrm{CDM}$", color = "#4b006e")
+axs[1].plot(x_values, np.abs(v_b_values_0_01_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
+axs[1].plot(x_values, -3*Nu_1_values_0_01_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
+axs[1].axvline(x = x_value_horizon_0_01, color = "#4f4f4f", linestyle = "solid", label = "Horizon crossing", zorder = 0)
+axs[1].text(-18, 0.6, "$k = 0.01$", fontsize = 11, color='black')
 
-# axs[2].plot(x_values, -3*Theta_1_values_0_001_student, label = "$v_\gamma$", color = "#f1b2e1")
-# axs[2].plot(x_values, np.abs(v_cdm_values_0_001_student), label = "$v_\mathrm{CDM}$", color = "#4b006e")
-# axs[2].plot(x_values, np.abs(v_b_values_0_001_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
-# axs[2].plot(x_values, -3*Nu_1_values_0_001_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
-# axs[2].axvline(x = x_value_horizon_0_001, color = "#4f4f4f", linestyle = "dashed", label = "Horizon crossing", zorder = 0)
-# axs[2].text(-18, 0.11, "$k = 0.001$", fontsize = 11, color='black')
+axs[2].plot(x_values, -3*Theta_1_values_0_001_student, label = "$v_\gamma$", color = "#f1b2e1")
+axs[2].plot(x_values, np.abs(v_cdm_values_0_001_student), label = "$v_\mathrm{CDM}$", color = "#4b006e")
+axs[2].plot(x_values, np.abs(v_b_values_0_001_student), label = "$v_\mathrm{b}$", linestyle = "dashed", color = "#d9328a")
+axs[2].plot(x_values, -3*Nu_1_values_0_001_student, label = "$v_\\nu$", color = "#addfff", linestyle = "dashed")
+axs[2].axvline(x = x_value_horizon_0_001, color = "#4f4f4f", linestyle = "dashed", label = "Horizon crossing", zorder = 0)
+axs[2].text(-18, 0.11, "$k = 0.001$", fontsize = 11, color='black')
 
 
-# for ax in axs:
-#     ax.axvline(x = -6.9854, color = "black", linestyle = "dotted", label = "Photon decoupling")
-#     ax.axvline(x = -8.132, color = "#8e8e8e", linestyle = "dotted", label = "Matter-radiation equality")
-#     ax.set_xlabel("x", fontsize = 13)
-#     ax.set_xticks([-18, -16, -14, -12, -10, -8, -6, -4, -2, 0])
-#     ax.tick_params(axis='both', labelsize=11)
-#     ax.legend(fontsize = 10)
+for ax in axs:
+    ax.axvline(x = -6.9854, color = "black", linestyle = "dotted", label = "Photon decoupling")
+    ax.axvline(x = -8.132, color = "#8e8e8e", linestyle = "dotted", label = "Matter-radiation equality")
+    ax.set_xlabel("x", fontsize = 13)
+    ax.set_xticks([-18, -16, -14, -12, -10, -8, -6, -4, -2, 0])
+    ax.tick_params(axis='both', labelsize=11)
+    ax.legend(fontsize = 10)
 
-# # plt.savefig("python_plots/plots/perturbations/v_cdm_v_b_v_gamma_v_nu_plot_student.pdf")
-# plt.show()
+# plt.savefig("python_plots/plots/perturbations/v_cdm_v_b_v_gamma_v_nu_plot_student.pdf")
+plt.show()
 
 
 

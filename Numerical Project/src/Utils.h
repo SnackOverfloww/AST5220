@@ -46,7 +46,7 @@ extern struct ConstantsAndUnits {
   
   // Min and max k-value
   const double k_min = 0.00005  / Mpc;
-  const double k_max = 1    / Mpc;
+  const double k_max = 1.0    / Mpc;
   const double k_max_los_integration = 0.3    / Mpc;
   
   // Min and max x-value

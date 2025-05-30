@@ -81,6 +81,7 @@ void Perturbations::integrate_perturbations(){
     Thetap_array[i] = Vector(n_x*n_k);
   }
 
+  std::cout << "Progress bar:" << std::endl;
   // Loop over all wavenumbers
   for(int ik = 0; ik < n_k; ik++){
 
@@ -101,10 +102,6 @@ void Perturbations::integrate_perturbations(){
     }
     x_array_tight = Utils::linspace(x_start, x_array[ix-1], ix);
     x_array_full = Utils::linspace(x_array[ix-1], x_end, n_x-(ix-1));
-    // for(int j = 0; j < (ix); j++){
-    //   std::cout << "x_arr  " << j << " " << x_array_tight[j] << std::endl;
-    // }
-    
 
     //===================================================================
     // Tight coupling integration
@@ -213,7 +210,6 @@ void Perturbations::integrate_perturbations(){
 
     
     for (int l = 0; l < n_x; l++){
-      // std::cout << l << std::endl;
       double Hp_of_x              = cosmo->Hp_of_x(x_array[l]);
       double tau_derivative       = rec->dtaudx_of_x(x_array[l]);
       double a                    = exp(x_array[l]);
@@ -221,7 +217,6 @@ void Perturbations::integrate_perturbations(){
       if(l < ix-1){
         // Arrays for scalars
         Phi_array[l+(ik*n_x)] = Phi_array_tc[l]; 
-        // std::cout << k * Constants.Mpc << " " << l << " " <<  Phi_array_tc[l] << std::endl; 
         deltacdm_array[l+(ik*n_x)] = deltacdm_array_tc[l];   
         deltab_array[l+(ik*n_x)] = deltab_array_tc[l];
         vcdm_array[l+(ik*n_x)] = vcdm_array_tc[l];
@@ -277,7 +272,6 @@ void Perturbations::integrate_perturbations(){
         } else{
           capital_pi_array[l+(ik*n_x)] = Theta_2;
         }
-        // std::cout << "fuck you" << std::endl;
 
       } else{
   
@@ -538,9 +532,7 @@ void Perturbations::compute_source_functions(){
   // TODO: Make the x and k arrays to evaluate over and use to make the splines
   //=============================================================================
   Vector k_array = exp(Utils::linspace(log(k_min), log(k_max), n_k));
-  // for (int l = 0; l < k_array.size(); l++){
-  //   std::cout << k_array[l] << std::endl;
-  // }
+
   Vector x_array = Utils::linspace(x_start, x_end, n_x);
 
   // Make storage for the source functions (in 1D array to be able to pass it to the spline)
@@ -948,6 +940,8 @@ void Perturbations::info() const{
     std::cout << "We include neutrinos\n";
   else
     std::cout << "We do not include neutrinos\n";
+  
+  std::cout << "\n" << std::endl;
 
   std::cout << "Information about the perturbation system:\n";
   std::cout << "ind_deltacdm:       " << Constants.ind_deltacdm         << "\n";
@@ -966,21 +960,22 @@ void Perturbations::info() const{
     std::cout << "n_ell_neutrinos     " << Constants.n_ell_neutrinos    << "\n";
   }
   std::cout << "n_ell_tot_full:     " << Constants.n_ell_tot_full       << "\n";
+  std::cout << "\n" << std::endl;
 
   std::cout << "Information about the perturbation system in tight coupling:\n";
-  std::cout << "ind_deltacdm:       " << Constants.ind_deltacdm_tc                  << "\n";
-  std::cout << "ind_deltab:         " << Constants.ind_deltab_tc                    << "\n";
-  std::cout << "ind_v_cdm:          " << Constants.ind_vcdm_tc                      << "\n";
-  std::cout << "ind_v_b:            " << Constants.ind_vb_tc                        << "\n";
-  std::cout << "ind_Phi:            " << Constants.ind_Phi_tc                       << "\n";
-  std::cout << "ind_start_theta:    " << Constants.ind_start_theta_tc               << "\n";
-  std::cout << "n_ell_theta:        " << Constants.n_ell_theta_tc                   << "\n";
+  std::cout << "ind_deltacdm:       " << Constants.ind_deltacdm_tc                      << "\n";
+  std::cout << "ind_deltab:         " << Constants.ind_deltab_tc                        << "\n";
+  std::cout << "ind_v_cdm:          " << Constants.ind_vcdm_tc                          << "\n";
+  std::cout << "ind_v_b:            " << Constants.ind_vb_tc                            << "\n";
+  std::cout << "ind_Phi:            " << Constants.ind_Phi_tc                           << "\n";
+  std::cout << "ind_start_theta:    " << Constants.ind_start_theta_tc                   << "\n";
+  std::cout << "n_ell_theta:        " << Constants.n_ell_theta_tc                       << "\n";
   if(Constants.neutrinos){
-    std::cout << "ind_start_nu:       " << Constants.ind_start_nu_tc                << "\n";
-    std::cout << "n_ell_neutrinos     " << Constants.n_ell_neutrinos_tc             << "\n";
+    std::cout << "ind_start_nu:       " << Constants.ind_start_nu_tc                    << "\n";
+    std::cout << "n_ell_neutrinos     " << Constants.n_ell_neutrinos_tc                 << "\n";
   }
-  std::cout << "n_ell_tot_tc:       " << Constants.n_ell_tot_tc                     << "\n";
-  std::cout << "eta(0) is:          " << cosmo->eta_of_x(0) / Constants.Mpc                         << "\n";
+  std::cout << "n_ell_tot_tc:       " << Constants.n_ell_tot_tc                         << "\n";
+  // std::cout << "eta(0) is:          " << cosmo->eta_of_x(0) / Constants.Mpc << " Mpc"    << "\n";
   std::cout << std::endl;
 }
 

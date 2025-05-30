@@ -21,7 +21,6 @@ void RecombinationHistory::solve(){
   // Compute and spline Xe, ne
   solve_number_density_electrons();
 
-  // std::cout << "testing2" << std::endl;
   // Compute and spline tau, dtaudx, ddtauddx, g, dgdx, ddgddx, ...
   solve_for_optical_depth_tau();
 
@@ -82,9 +81,7 @@ void RecombinationHistory::solve_number_density_electrons(){
         //Store the result we got from the Saha equation
         Xe_arr[i] = Xe_current;
         log_ne_arr[i] = log(ne_current);
-        // std::cout << "Xe = " << Xe_arr[i] << ", n_e = " << ne_arr[i] << std::endl;
-        // std::cout << "saha" << std::endl;
-        // std::cout << Xe_arr[i] << std::endl;
+        
   
         //=============================================================================
   
@@ -106,8 +103,6 @@ void RecombinationHistory::solve_number_density_electrons(){
         auto Xe_array = peebles_Xe_ode.get_data_by_component(0);
   
         Xe_arr[i] = Xe_array[1];
-  
-        // std::cout << "peebles" << std::endl;
         
       }
 
@@ -148,8 +143,6 @@ void RecombinationHistory::solve_number_density_electrons(){
 
 std::pair<double,double> RecombinationHistory::electron_fraction_from_saha_equation(double x) const{
   const double a           = exp(x);
-  // std::cout << "a is" << a << std::endl;
-  // std::cout << "x is" << x << std::endl;
  
   // Physical constants
   const double k_b         = Constants.k_b;
@@ -171,7 +164,6 @@ std::pair<double,double> RecombinationHistory::electron_fraction_from_saha_equat
   
   // Compute baryon density n_b
   double baryon_density = (OmegaB * critical_density)/(Constants.m_H * pow(a, 3.));
-  // std::cout << "Baryon density is " << baryon_density << std::endl;
 
   //Compute baryon temprature
   double baryon_temperature = TCMB_0/a;
@@ -191,11 +183,9 @@ std::pair<double,double> RecombinationHistory::electron_fraction_from_saha_equat
     if (Xe < pow(10,-30)){
       Xe = 1e-30;
     }
-    // std::cout << "if ne" << log(ne) << std::endl;
   } 
   else{
     Xe = 1;
-    // std::cout << " else ne" << log(ne) << std::endl;
   }
   ne = Xe * baryon_density;
   
@@ -288,7 +278,6 @@ void RecombinationHistory::solve_for_optical_depth_tau(){
   // Set the derivative for photon optical depth
     
     double ne = ne_of_x(x);
-    // std::cout << ne << std::endl;
     dtaudx[0] = ( -Constants.c *ne* Constants.sigma_T) / H_of_x;
 
     return GSL_SUCCESS;
@@ -315,7 +304,6 @@ void RecombinationHistory::solve_for_optical_depth_tau(){
   Vector g_tilde(npts);
   for (int i = 0; i<npts; i++){
     g_tilde[i] = -1*tau_of_x_spline.deriv_x(x_array[i]) * exp(-1 * tau_of_x_spline(x_array[i]));
-    // std::cout << g_tilde[i] << std::endl;
   }
   
   g_tilde_of_x_spline.create(x_array, g_tilde, "g"); // the problem is here!
@@ -367,7 +355,6 @@ void RecombinationHistory::calculate_sound_horizon(){
   
   double initial_c_s = Constants.c * sqrt(((4*OmegaR) / (3*OmegaB*(exp(x_start)))) / (3*(1+((4*OmegaR) / (3*OmegaB*exp(x_start))))));
   double initial_Hp_of_x = cosmo->Hp_of_x(x_start);
-  // std::cout << (initial_Hp_of_x) << std::endl;
   double initial = initial_c_s / initial_Hp_of_x;
 
   ODESolver ode;
@@ -451,6 +438,7 @@ void RecombinationHistory::info() const{
   std::cout << "The freeze-out abundance of free electrons today is " << exp(log_ne_of_x(0)) << std::endl;
   std::cout << "The sound horizon at decoupling is " << sound_horizon_of_x_spline(-6.9854) / (3.08*pow(10,16)*pow(10,6)) << std::endl;
   std::cout << std::endl;
+  
 } 
 
 //====================================================
