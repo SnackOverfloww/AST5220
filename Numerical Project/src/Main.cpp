@@ -57,9 +57,6 @@ int main(int argc, char **argv){
 
   // mcmc_fit_to_supernova_data("data/supernovadata.txt", "results.txt");
 
-  // Remove when module is completed
-  // return 0;
-
   //=========================================================================
   // Module II
   //=========================================================================
@@ -71,12 +68,9 @@ int main(int argc, char **argv){
 
   /*Output recombination quantities*/ 
   // rec.output("recombination_with_reionisation.txt");
-  rec.output("recombination_no_reionisation.txt");
+  rec.output("recombination_no_reionisation.txt"); // change this if you are solving with reionisation, just saha etc.
   // rec.output("recombination_just_saha.txt");
 
-
-  // Remove when module is completed
-  // return 0;
 
   //=========================================================================
   // Module III
@@ -91,13 +85,10 @@ int main(int argc, char **argv){
 
   
   // Output perturbation quantities
-  double kvalue = 0.1 / Constants.Mpc;
-  pert.output(kvalue, "perturbations_k0.1_student.txt");
+  double kvalue = 0.1 / Constants.Mpc; //change this depending on what mode (k) you want to solve for
+  pert.output(kvalue, "perturbations_k0.1_student.txt"); //change this depending on what mode (k) you want to solve for
   
-  
-  // Remove when module is completed
-  // return 0;
-  
+
   //=========================================================================
   // Module IV
   //=========================================================================
@@ -105,12 +96,9 @@ int main(int argc, char **argv){
   PowerSpectrum power(&cosmo, &rec, &pert, A_s, n_s, kpivot_mpc);
   power.solve();
   power.output("C_ells_all_sf_terms_student.txt");
-  power.output_transfer("transfer_function.txt", 7, 25, 35, 45, 55);
+  power.output_transfer("transfer_function.txt", 7, 25, 35, 45, 55); //change this if you want other \ell-values
   // power.output_transfer("transfer_function.txt", 4, 19, 24, 32, 42);
   power.output_pofk("matter_power_spectrum.txt", 0);
-  
-  // Remove when module is completed
-  return 0;
 
   Utils::EndTiming("Everything");
 
